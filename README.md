@@ -71,7 +71,7 @@ Add FFmpeg to PATH environment variable
 <b><details><summary>Edit settings.js</summary></b>
 ```bash
 global.APIKeys = {
-	'https://zenzapis.xyz': 'YOURAPIKEY',
+	'https://zenzapis.xyz': 'f22faeca96ed',
 }
   
 global.owner = ["970594182843"]
