@@ -558,7 +558,7 @@ Type *surrender* to surrender and admit defeat`
             }
             }
             break
-            case 'delttc': case 'delttt': {
+            case 'delttc': case 'delttt': case 'حذف اكس او': {
             this.game = this.game ? this.game : {}
             try {
             if (this.game) {
@@ -1221,7 +1221,7 @@ break
                 GojoMdNx.sendTextWithMentions(m.chat, teks, m)
             }
             break
-            case 'q': case 'quoted': case 'اقتباس': {
+            case 'q': case 'quoted': case 'اقتباس': case 'اخر رد للبوت': {
 		if (!m.quoted) return reply('رد ع رسالة البوت')
 		let wokwol = await GojoMdNx.serializeM(await m.getQuotedObj())
 		if (!wokwol.quoted) return reply('الرسالة ما فيها رد')
@@ -1238,7 +1238,7 @@ break
                  GojoMdNx.sendTextWithMentions(m.chat, teks, m)
              }
              break
-             case 'listonlinexxx': case 'onlinelistxxx': {
+             case 'tagonline': case 'onlinelistxxx': case 'منشن الاونلاين': {
                     let id = args && /\d+\-\d+@g.us/.test(args[0]) ? args[0] : m.chat
                     let online = [...Object.keys(store.presences[id]), botNumber]
                     GojoMdNx.sendText(m.chat, 'Online List:\n\n' + online.map(v => '🐦 @' + v.replace(/@.+/, '')).join`\n`, m, { mentions: online })
@@ -1261,16 +1261,8 @@ break
                 }
             }
             break
-            case 'dbinary': {
-            if (!m.quoted.text && !text) return replay(`Reply Text With Caption ${prefix + command}`)
-            let { dBinary } = require('./lib/binary')
-            let teks = text ? text : m.quoted && m.quoted.text ? m.quoted.text : m.text
-            let db = await dBinary(teks)
-            reply(db)
-        }
-        break
-            case 'emojimix': {
-	        if (!text) return replay(`Example : ${prefix + command} 😅+🤔`)
+                case 'emojimix': case 'دمج ايموجي': case 'دمج': {
+	        if (!text) return replay(`مثال : ${prefix + command} 😅+🤔`)
 		let [emoji1, emoji2] = text.split`+`
 		let anu = await fetchJson(`https://tenor.googleapis.com/v2/featured?key=AIzaSyAyimkuYQYF_FXVALexPuGQctUWRURdCYQ&contentfilter=high&media_filter=png_transparent&component=proactive&collection=emoji_kitchen_v5&q=${encodeURIComponent(emoji1)}_${encodeURIComponent(emoji2)}`)
 		for (let res of anu.results) {
@@ -1279,9 +1271,9 @@ break
 		}
 	    }
 	    break
-            case 'toimage': case 'toimg': {
-                if (!quoted) return reply(`Reply Image`)
-                if (!/webp/.test(mime)) reply(`Reply Sticker With Caption *${prefix + command}*`)
+            case 'toimage': case 'toimg': case 'لصورة': {
+                if (!quoted) return reply(`صورة الرد؟`)
+                if (!/webp/.test(mime)) reply(`رد عالستيكر مع الامر *${prefix + command}*`)
                 reply(mess.wait)
                 let media = await GojoMdNx.downloadAndSaveMediaMessage(quoted)
                 let ran = await getRandom('.png')
@@ -1294,9 +1286,9 @@ break
                 })
             }
             break
-	        case 'tomp4': case 'tovideo': {
+	        case 'tomp4': case 'tovideo': case 'لفيديو': {
                 if (!quoted) reply(`Reply Image`)
-                if (!/webp/.test(mime)) return replay(`Reply Sticker With Caption *${prefix + command}*`)
+                if (!/webp/.test(mime)) return replay(`رد عالستيكر مع الامر *${prefix + command}*`)
                 reply(mess.wait)
 		let { webp2mp4File } = require('./lib/uploader')
                 let media = await GojoMdNx.downloadAndSaveMediaMessage(quoted)
@@ -1305,9 +1297,9 @@ break
                 await fs.unlinkSync(media)
             }
             break
-            case 'toaud': case 'toaudio': {
-            if (!/video/.test(mime) && !/audio/.test(mime)) return replay(`Send/Reply Video/Audio You Want To Use As Audio With Caption ${prefix + command}`)
-            if (!quoted) return reply(`Send/Reply Video/Audio You Want To Convert To Audio With Caption ${prefix + command}`)
+            case 'toaud': case 'toaudio': case 'لصوت': {
+            if (!/video/.test(mime) && !/audio/.test(mime)) return replay(`ارسل او رد بالامر ع الفيديو الي تبي تحوله لصوت ${prefix + command}`)
+            if (!quoted) return reply(`ارسل او رد بالامر ع الفيديو الي تبي تحوله لصوت ${prefix + command}`)
             reply(mess.wait)
             let media = await quoted.download()
             let { toAudio } = require('./lib/converter')
@@ -1315,9 +1307,9 @@ break
             GojoMdNx.sendMessage(m.chat, {audio: audio, mimetype: 'audio/mpeg'}, { quoted : m })
             }
             break
-            case 'tomp3': {
-            if (/document/.test(mime)) return reply(`Send/Reply Video/Audio You Want to Convert Into MP3 With Caption ${prefix + command}`)
-            if (!/video/.test(mime) && !/audio/.test(mime)) return replay(`Send/Reply Video/Audio You Want To Convert into MP3 With Caption ${prefix + command}`)
+            case 'tomp3': case 'لمقطع صوتي': {
+            if (/document/.test(mime)) return reply(`ارسل او رد بالامر ع الفيديو الي تبي تحوله لمقطع صوتي ${prefix + command}`)
+            if (!/video/.test(mime) && !/audio/.test(mime)) return replay(`ارسل او رد بالامر ع الفيديو الي تبي تحوله لمقطع صوتي ${prefix + command}`)
             if (!quoted) return replay(`Send/Reply Video/Audio You Want To Convert Into MP3 With Caption ${prefix + command}`)
             reply(mess.wait)
             let media = await quoted.download()
@@ -1326,9 +1318,9 @@ break
             GojoMdNx.sendMessage(m.chat, {document: audio, mimetype: 'audio/mpeg', fileName: `Converted By ${GojoMdNx.user.name}.mp3`}, { quoted : m })
             }
             break
-            case 'tovn': case 'toptt': {
-            if (!/video/.test(mime) && !/audio/.test(mime)) return reply(`Reply Video/Audio That You Want To Be VN With Caption ${prefix + command}`)
-            if (!quoted) return reply(`Reply Video/Audio That You Want To Be VN With Caption ${prefix + command}`)
+            case 'tovn': case 'toptt':case 'ل VN': {
+            if (!/video/.test(mime) && !/audio/.test(mime)) return reply(`ارسل او رد بالامر ع الفيديو الي تبي تحوله لVN ${prefix + command}`)
+            if (!quoted) return reply(`ارسل او رد بالامر ع الفيديو الي تبي تحوله لVN ${prefix + command}`)
             reply(mess.wait)
             let media = await quoted.download()
             let { toPTT } = require('./lib/converter')
@@ -1336,9 +1328,9 @@ break
             GojoMdNx.sendMessage(m.chat, {audio: audio, mimetype:'audio/mpeg', ptt:true }, {quoted:m})
             }
             break
-            case 'togif': {
+            case 'togif': case 'لجيف': {
                 if (!quoted) return reply(`Reply Image`)
-                if (!/webp/.test(mime)) return reply(`Reply Sticker With Caption *${prefix + command}*`)
+                if (!/webp/.test(mime)) return reply(`رد عالستيكر مع الامر *${prefix + command}*`)
                 reply(mess.wait)
 		let { webp2mp4File } = require('./lib/uploader')
                 let media = await GojoMdNx.downloadAndSaveMediaMessage(quoted)
@@ -1347,7 +1339,7 @@ break
                 await fs.unlinkSync(media)
             }
             break
-	        case 'tourl': {
+	        case 'tourl': case 'لرابط': {
                 reply(mess.wait)
 		        let { UploadFileUgu, webp2mp4File, TelegraPh } = require('./lib/uploader')
                 let media = await GojoMdNx.downloadAndSaveMediaMessage(quoted)
@@ -1361,10 +1353,10 @@ break
                 await fs.unlinkSync(media)
             }
             break
-            case 'imagenobgxxx': case 'removebgxxx': case 'remove-bgxxx': {
+            case 'ازالة الخلفية': case 'removebgxxx': case 'remove-bgxxx': {
 	    if (!quoted) return replay(`Send/Reply Image With Caption ${prefix + command}`)
-	    if (!/image/.test(mime)) return replay(`Send/Reply Image With Caption ${prefix + command}`)
-	    if (/webp/.test(mime)) return replay(`Send/Reply Image With Caption ${prefix + command}`)
+	    if (!/image/.test(mime)) return replay(`رد او ارسل الصورة مع الامر ${prefix + command}`)
+	    if (/webp/.test(mime)) return replay(`رد او ارسل الصورة مع الامر ${prefix + command}`)
 	    let remobg = require('remove.bg')
 	    let apirnobg = ['q61faXzzR5zNU6cvcrwtUkRU','S258diZhcuFJooAtHTaPEn4T','5LjfCVAp4vVNYiTjq9mXJWHF','aT7ibfUsGSwFyjaPZ9eoJc61','BY63t7Vx2tS68YZFY6AJ4HHF','5Gdq1sSWSeyZzPMHqz7ENfi8','86h6d6u4AXrst4BVMD9dzdGZ','xp8pSDavAgfE5XScqXo9UKHF','dWbCoCb3TacCP93imNEcPxcL']
 	    let apinobg = apirnobg[Math.floor(Math.random() * apirnobg.length)]
@@ -1384,49 +1376,21 @@ break
 	    await fs.unlinkSync(localFile)
 	    await fs.unlinkSync(outputFile)
 	    })
-	    }
-	    break
-	    case 'yts': case 'ytsearch': {
-                if (!text) return replay(`Example : ${prefix + command} Anime Story Whatsapp`)
-                let yts = require("yt-search")
-                let search = await yts(text)
-                let teks = 'YouTube Search\n\n Result From '+text+'\n\n'
-                let no = 1
-                for (let i of search.all) {
-                    teks += `🐦 No : ${no++}\n🐦 Type : ${i.type}\n🐦 Video ID : ${i.videoId}\n🐦 Title : ${i.title}\n🐦 Views : ${i.views}\n🐦 Duration : ${i.timestamp}\n🐦 Uploaded On : ${i.ago}\n🐦 Author : ${i.author.name}\n🐦 Url : ${i.url}\n\n─────────────────\n\n`
-                }
-                GojoMdNx.sendMessage(m.chat, { image: { url: search.all[0].thumbnail },  caption: teks }, { quoted: m })
             }
             break
-        case 'google': {
-                if (!text) return reply(`Example : ${prefix + command} gojo shiba inu`)
-                let google = require('google-it')
-                google({'query': text}).then(res => {
-                let teks = `Google Search Title : ${text}\n\n`
-                for (let g of res) {
-                teks += `🐦 *Title* : ${g.title}\n`
-                teks += `🐦 *Description* : ${g.snippet}\n`
-                teks += `🐦 *Link* : ${g.link}\n\n────────────────────────\n\n`
-                } 
-                reply(teks)
-                })
-                }
-                break
-        case 'gimage': case 'googleimage': {
+          case 'img': case 'صورة': {
         if (!text) return reply(`Example : ${prefix + command} gojo`)
         let gis = require('g-i-s')
         gis(text, async (error, result) => {
         n = result
         images = n[Math.floor(Math.random() * n.length)].url
         let buttons = [
-                    {buttonId: `gimage ${text}`, buttonText: {displayText: '➡️➡️Next Image➡️➡️'}, type: 1}
+                    {buttonId: `gimage ${text}`, buttonText: {displayText: 'الي بعدو'}, type: 1}
                 ]
                 let buttonMessage = {
                     image: { url: images },
-                    caption: `*-------「 GIMAGE SEARCH 」-------*
-🤠 *Query* : ${text}
-🔗 *Media Url* : ${images}`,
-                    footer: GojoMdNx.user.name,
+                    caption: ` `
+
                     buttons: buttons,
                     headerType: 4
                 }
@@ -1434,28 +1398,22 @@ break
         })
         }
         break
-	    case 'play': case 'song': case 'ytplay': {
+	    case 'play': case 'song': case 'اغنية': {
                 if (!text) return reply(`Example : ${prefix + command} Stay`)
                 let yts = require("yt-search")
                 let search = await yts(text)
                 let anu = search.videos[Math.floor(Math.random() * search.videos.length)]
                 let buttons = [
-                    {buttonId: `ytmp3 ${anu.url}`, buttonText: {displayText: '🎶Audio🎶'}, type: 1},
-                    {buttonId: `ytmp4 ${anu.url}`, buttonText: {displayText: '📽️Video📽️'}, type: 1}
+                    {buttonId: `ytmp3 ${anu.url}`, buttonText: {displayText: 'صوت'}, type: 1},
+                    {buttonId: `ytmp4 ${anu.url}`, buttonText: {displayText: 'فيديو'}, type: 1}
                 ]
                 let buttonMessage = {
                     image: { url: anu.thumbnail },
                     caption: `
-🐦 Title : ${anu.title}
-🐦 Ext : Search
-🐦 ID : ${anu.videoId}
-🐦 Duration : ${anu.timestamp}
-🐦 Viewes : ${anu.views}
-🐦 Uploaded On : ${anu.ago}
-🐦 Author : ${anu.author.name}
-🐦 Channel : ${anu.author.url}
-🐦 Description : ${anu.description}
-🐦 Url : ${anu.url}`,
+ ${anu.title}
+مدة المقطع : ${anu.timestamp}
+المشاهدات : ${anu.views}
+الرابط: ${anu.url}`,
                     footer: GojoMdNx.user.name,
                     buttons: buttons,
                     headerType: 4
@@ -1463,73 +1421,13 @@ break
                 GojoMdNx.sendMessage(m.chat, buttonMessage, { quoted: m })
             }
             break
-	    case 'ytmp3': case 'getmusic': case 'ytaudio': {
-                let { yta } = require('./lib/y2mate')
-                if (!text) return reply(`Example : ${prefix + command} https://youtube.com/watch?v=PtFMh6Tccag%27 128kbps`)
-                let quality = args[1] ? args[1] : '320kbps'
-                let media = await yta(text, quality)
-                if (media.filesize >= 999999) return reply('File Over Limit '+util.format(media))
-                GojoMdNx.sendImage(m.chat, media.thumb, `🐦 Title : ${media.title}\n🐦 File Size : ${media.filesizeF}\n🐦 Url : ${isUrl(text)}\n🐦 Ext : MP3\n🐦 Resolution : ${args[1] || '320kbps'}`, m)
-                GojoMdNx.sendMessage(m.chat, { audio: { url: media.dl_link }, mimetype: 'audio/mpeg', fileName: `${media.title}.mp3` }, { quoted: m })
-            }
-            break
-            case 'ytmp4': case 'getvideo': case 'ytvideo': {
-                let { ytv } = require('./lib/y2mate')
-                if (!text) return reply(`Example : ${prefix + command} https://youtube.com/watch?v=PtFMh6Tccag%27 360p`)
-                let quality = args[1] ? args[1] : '360p'
-                let media = await ytv(text, quality)
-                if (media.filesize >= 999999) return reply('File Over Limit '+util.format(media))
-                GojoMdNx.sendMessage(m.chat, { video: { url: media.dl_link }, mimetype: 'video/mp4', fileName: `${media.title}.mp4`, caption: `🐦 Title : ${media.title}\n🐦 File Size : ${media.filesizeF}\n🐦 Url : ${isUrl(text)}\n🐦 Ext : MP3\n🐦 Resolution : ${args[1] || '360p'}` }, { quoted: m })
-            }
-            break
-	    case 'getmusicxxx': {
-                let { yta } = require('./lib/y2mate')
-		let urls = quoted.text.match(new RegExp(/(?:https?:\/\/)?(?:youtu\.be\/|(?:www\.|m\.)?youtube\.com\/(?:watch|v|embed|shorts)(?:\.php)?(?:\?.*v=|\/))([a-zA-Z0-9\_-]+)/, 'gi'))
-                let quality = args[1] ? args[1] : '128kbps'
-                let media = await yta(urls[text - 1], quality)
-                if (media.filesize >= 100000) return reply('File Over Limit '+util.format(media))
-                GojoMdNx.sendImage(m.chat, media.thumb, `🐦 Title : ${media.title}\n🐦 File Size : ${media.filesizeF}\n🐦 Url : ${urls[text - 1]}\n🐦 Ext : MP3\n🐦 Resolution : ${args[1] || '128kbps'}`, m)
-                GojoMdNx.sendMessage(m.chat, { audio: { url: media.dl_link }, mimetype: 'audio/mpeg', fileName: `${media.title}.mp3` }, { quoted: m })
-            }
-            break
-            case 'getvideoxxx': {
-                let { ytv } = require('./lib/y2mate')
-                if (!text) throw `Example : ${prefix + command} 1`
-                if (!m.quoted) throw 'Reply Message'
-                if (!m.quoted.isBaileys) throw `Can Only Reply To Meessages From Bots`
-                let urls = quoted.text.match(new RegExp(/(?:https?:\/\/)?(?:youtu\.be\/|(?:www\.|m\.)?youtube\.com\/(?:watch|v|embed|shorts)(?:\.php)?(?:\?.*v=|\/))([a-zA-Z0-9\_-]+)/, 'gi'))
-                if (!urls) throw`Maybe The Message You Replied Does Not Contain The Video Search Result`
-                let quality = args[1] ? args[1] : '360p'
-                let media = await ytv(urls[text - 1], quality)
-                if (media.filesize >= 100000) return reply('File Over Limit '+util.format(media))
-                GojoMdNx.sendMessage(m.chat, { video: { url: media.dl_link }, mimetype: 'video/mp4', fileName: `${media.title}.mp4`, caption: `🐦 Title : ${media.title}\n🐦 File Size : ${media.filesizeF}\n🐦 Url : ${urls[text - 1]}\n🐦 Ext : MP3\n🐦 Resolution : ${args[1] || '360p'}` }, { quoted: m })
-            }
-            break
-            case 'pinterest': {
+            case 'pinterest': case 'بينتيريست': {
                 reply(mess.wait)
 		let { pinterest } = require('./lib/scraper')
                 anu = await pinterest(text)
                 result = anu[Math.floor(Math.random() * anu.length)]
                 GojoMdNx.sendMessage(m.chat, { image: { url: result }, caption: '🐦 Media Url : '+result }, { quoted: m })
             }
-            break
-case 'webtonsearch': case 'webtoon':
-                if (!text) return reply('What Are you Looking For??')
-                await reply(mess.wait)
-                nexusnw.Webtoons(q).then(async data => {
-                    let txt = `*------「 WEBTOONS-SEARCH 」------*\n\n`
-                    for (let i of data) {
-                        txt += `*📫 Title :* ${i.judul}\n`
-                        txt += `*👍🏻 Like :* ${i.like}\n`
-                        txt += `*🤴🏻 Creator :* ${i.creator}\n`
-                        txt += `*🎥 Genre :* ${i.genre}\n`
-                        txt += `*📚 Url :* ${i.url}\n ----------------------------------------------------------\n`
-                    }
-                    await reply(txt)
-                })
-                .catch((err) => {
-                    reply(mess.error)
-                })
             break
 case 'candy': case 'christmas': case '3dchristmas': case 'sparklechristmas':
 case 'deepsea': case 'scifi': case 'rainbow': case 'waterpipe': case 'spooky': 
@@ -1604,132 +1502,22 @@ case 'lava': case 'rock': case 'bloodglas': case 'hallowen': case 'darkgold': ca
              let anu = await maker.textpro(link, q)
                 GojoMdNx.sendMessage(m.chat, { image: { url: anu }, caption: `Made by ${global.botname},For my Darling ` }, { quoted: m })
              }
-             break
-            case 'drakorxxx':
-                if (!text) return reply('What Are You Looking For??')
-                await reply(mess.wait)
-                nexusnw.Drakor(`${text}`).then(async data => {
-                    let txt = `*-----「 DRAKOR-SEARCH 」-----*\n\n`
-                    for (let i of data) {
-                        txt += `*📫 Title :* ${i.judul}\n`
-                        txt += `*📆 Years :* ${i.years}\n`
-                        txt += `*🎥 Genre :* ${i.genre}\n`
-                        txt += `*📚 Url :* ${i.url}\n-----------------------------------------------------\n`
-                    }
-                    await sendFileFromUrl(from,data[0].thumbnail,txt,m)
-                })
-                .catch((err) => {
-                    reply(mess.error)
-                })
-            break
-            case 'animexxx':{
-                if (!text) return reply(`What Anime Are You Looking For??`)
-                await reply(mess.wait)
-                nexusnw.Anime(q).then(async data => {
-                    let txt = `*-------「 ANIME-SEARCH 」-------*\n\n`
-                    for (let i of data) {
-                        txt += `*📫 Title :* ${i.judul}\n`
-                        txt += `*📚 Url :* ${i.link}\n-----------------------------------------------------\n`
-                    }
-                    let gam = await getBuffer(data[0].thumbnail.replace('https://www.anime-planet.com',''))
-                    var but = [
-				{
-					"urlButton": {
-						"displayText": "Watch🎥",
-						"url": `${myweb}`
-						}
-					}
-				]
-				await GojoMdNx.send5ButLoc(from, txt , `© ${ownername}`,gam, but , { userJid: m.chat, quoted: m })
-                })
-                .catch((err) => {
-                    reply(mess.error)
-                })
-                }
-            break
-            case 'characterxxx': case 'karakterxxx':
-                if (!text) return reply(`What Anime Character Are You Looking For??`)
-                await reply(mess.wait)
-                nexusnw.Character(q).then(async data => {
-                    let txt = `*---「 CHARACTER-SEARCH 」---*\n\n`
-                    for (let i of data) {
-                        txt += `*📫 Character :* ${i.character}\n`
-                        txt += `*📚 Url :* ${i.link}\n-----------------------------------------------------\n`
-                    }
-                    let gam = await getBuffer(data[0].thumbnail.replace('https://www.anime-planet.com',''))
-                    var but = [
-				{
-					"urlButton": {
-						"displayText": "YouTube📍",
-						"url": `${myweb}`
-						}
-					}
-				]
-				await GojoMdNx.send5ButLoc(from, txt , `© ${ownername}`,gam, but , { userJid: m.chat, quoted: m })
-                })
-                .catch((err) => {
-                    reply(mess.error)
-                })
-            break
-            case 'manga':
-                if (!text) return reply(`What Manga Are You Looking For??`)
-                await reply(mess.wait)
-                nexusnw.Manga(`${text}`).then(async data => {
-                    let txt = `*------「 MANGA-SEARCH 」------*\n\n`
-                    for (let i of data) {
-                         txt += `*📫 Title :* ${i.judul}\n`
-                         txt += `*📚 Url :* ${i.link}\n-----------------------------------------------------\n`
-                    }
-                    let gam = await getBuffer(data[0].thumbnail.replace('https://www.anime-planet.com',''))
-                    var but = [
-				{
-					"urlButton": {
-						"displayText": "YouTube📍",
-						"url": `${myweb}`
-						}
-					}
-				]
-				await GojoMdNx.send5ButLoc(from, txt , `© ${ownername}`,gam, but , { userJid: m.chat, quoted: m })
-                })
-                .catch((err) => {
-                    reply(mess.error)
-                })
-            break
-case 'textmakerl': {
-if (args.length < 1) return reply(`Example :\n${prefix + command} Name`)
-if (args[0] === 'glitch') {
-if (args.length < 2) return reply(`Example :\n${prefix + command + ' ' + args[0]} ${global.ownername}`)
-let teds = await thiccysapi.textpro("https://textpro.me/create-impressive-glitch-text-effects-online-1027.html", [args[1]])
-GojoMdNx.sendMessage(from, {image:{url:teds}, caption:"Done!"}, {quoted:m})
-} else if (args[0] === 'glow') {
-if (args.length < 2) return reply(`Example :\n${prefix + command + ' ' + args[0]} ${global.ownername}`)
-let teds = await thiccysapi.textpro("https://textpro.me/create-light-glow-sliced-text-effect-online-1068.html", [args[1]])
-GojoMdNx.sendMessage(from, {image:{url:teds}, caption:"Done!"}, {quoted:m})
-} else {
-reply(`*Text Maker List :*\n•> glitch\n•> glow`)
-}
-}
-break
-            case 'waifu': case 'husbu': case 'neko': case 'shinobu': case 'megumin': case 'waifus': case 'nekos': case 'trap': case 'blowjob': {
-                reply(mess.wait)
-                GojoMdNx.sendMessage(m.chat, { image: { url: api('zenz', '/api/random/'+command, {}, 'apikey') }, caption: 'Generated Random ' + command }, { quoted: m })
-            }
-            break
-	    case 'couplepp':  case 'ppcouple': {
+	     break
+                case 'تطقيم':  case 'ppcouple': {
                 reply(mess.wait)
                 let anu = await fetchJson('https://raw.githubusercontent.com/iamriz7/kopel_/main/kopel.json')
                 let random = anu[Math.floor(Math.random() * anu.length)]
-                GojoMdNx.sendMessage(m.chat, { image: { url: random.male }, caption: `Couple Male🙎🏻‍♂️` }, { quoted: m })
-                GojoMdNx.sendMessage(m.chat, { image: { url: random.female }, caption: `Couple Female🙎🏻‍♀️` }, { quoted: m })
+                GojoMdNx.sendMessage(m.chat, { image: { url: random.male }, caption: `ولد🙎🏻‍♂️` }, { quoted: m })
+                GojoMdNx.sendMessage(m.chat, { image: { url: random.female }, caption: `بنت🙎🏻‍♀️` }, { quoted: m })
             }
 	    break
-            case 'coffee': case 'kopi': {
+            case 'قهوة': case 'شاي': {
             let buttons = [
-                    {buttonId: `coffe`, buttonText: {displayText: '➡️Next Image➡️'}, type: 1}
+                    {buttonId: `coffe`, buttonText: {displayText: 'الي بعدو'}, type: 1}
                 ]
                 let buttonMessage = {
                     image: { url: 'https://coffee.alexflipnote.dev/random' },
-                    caption: `☕ Random Coffee`,
+                    caption: `☕`,
                     footer: GojoMdNx.user.name,
                     buttons: buttons,
                     headerType: 4
@@ -1737,17 +1525,17 @@ break
                 GojoMdNx.sendMessage(m.chat, buttonMessage, { quoted: m })
             }
             break
-            case 'wallpaper': {
-                if (!text) return reply(`Enter Query Title`)
+            case 'wallpaper': case 'خلفية': {
+                if (!text) return reply(`اكتب الخفية الي تبيها`)
 		let { wallpaper } = require('./lib/scraper')
                 anu = await wallpaper(text)
                 result = anu[Math.floor(Math.random() * anu.length)]
 		let buttons = [
-                    {buttonId: `wallpaper ${text}`, buttonText: {displayText: '➡️Next Image➡️'}, type: 1}
+                    {buttonId: `wallpaper ${text}`, buttonText: {displayText: 'الي بعدو'}, type: 1}
                 ]
                 let buttonMessage = {
                     image: { url: result.image[0] },
-                    caption: `🐦 Title : ${result.title}\n🐦 Category : ${result.type}\n🐦 Detail : ${result.source}\n🐦 Media Url : ${result.image[2] || result.image[1] || result.image[0]}`,
+                    caption: ``,
                     footer: GojoMdNx.user.name,
                     buttons: buttons,
                     headerType: 4
@@ -1755,47 +1543,15 @@ break
                 GojoMdNx.sendMessage(m.chat, buttonMessage, { quoted: m })
             }
             break
-            case 'wikimedia': {
-                if (!text) return reply(`Enter Query Title`)
-		let { wikimedia } = require('./lib/scraper')
-                anu = await wikimedia(text)
-                result = anu[Math.floor(Math.random() * anu.length)]
-                let buttons = [
-                    {buttonId: `wikimedia ${text}`, buttonText: {displayText: '➡️Next Image➡️'}, type: 1}
-                ]
-                let buttonMessage = {
-                    image: { url: result.image },
-                    caption: `🐦 Title : ${result.title}\n🐦 Source : ${result.source}\n🐦 Media Url : ${result.image}`,
-                    footer: GojoMdNx.user.name,
-                    buttons: buttons,
-                    headerType: 4
-                }
-                GojoMdNx.sendMessage(m.chat, buttonMessage, { quoted: m })
-            }
-            break
-            case 'quotesanime': case 'animequotes': case 'animequote': case 'quoteanime': {
+            case 'quotesanime': case 'animequotes': case 'animequote': case 'اقتباس انمي': {
 		let { quotesAnime } = require('./lib/scraper')
                 let anu = await quotesAnime()
                 result = anu[Math.floor(Math.random() * anu.length)]
                 let buttons = [
-                    {buttonId: `quotesanime`, buttonText: {displayText: '➡️Next➡️'}, type: 1}
+                    {buttonId: `quotesanime`, buttonText: {displayText: 'الي بعدو'}, type: 1}
                 ]
                 let buttonMessage = {
                     text: `~_${result.quotes}_\n\nBy '${result.karakter}', ${result.anime}\n\n- ${result.up_at}`,
-                    footer: 'Press The Button Below',
-                    buttons: buttons,
-                    headerType: 2
-                }
-                GojoMdNx.sendMessage(m.chat, buttonMessage, { quoted: m })
-            }
-            break
-	        case 'motivasi': case 'motivationalquote': case 'bucinquote': case 'katasenja': case 'puisi': {
-                let anu = await fetchJson(api('zenz', '/api/'+command, {}, 'apikey'))
-                let buttons = [
-                    {buttonId: `motivasi`, buttonText: {displayText: '➡️Next➡️'}, type: 1}
-                ]
-                let buttonMessage = {
-                    text: anu.result.message,
                     footer: 'Press The Button Below',
                     buttons: buttons,
                     headerType: 2
@@ -2121,25 +1877,6 @@ break
 		    db.data.users[m.sender].limit -= 1
                 } else {
                     reply(`Example : ${prefix +command} type id\n\nList Type :\n1. ff (Free Fire)\n2. ml (Mobile Legends)\n3. aov (Arena Of Valor)\n4. cod (Call Of Duty)\n5. pb (point Blank)\n6. ig (Instagram)\n7. npm (https://npmjs.com)`)
-                }
-            }
-            break
-	        case 'tiktokd': case 'tiktoknowmx': {
-                if (!text) return reply(`Enter Query Link!`)
-                reply(mess.wait)
-                let anu = await fetchJson(api('zenz', '/downloader/tiktok', { url: text }, 'apikey'))
-                let buttons = [
-                    {buttonId: `tiktokwm ${text}`, buttonText: {displayText: '🥬With Watermark🥬'}, type: 1},
-                    {buttonId: `tiktokmp3 ${text}`, buttonText: {displayText: '🎵Audio🎵'}, type: 1}
-                ]
-                let buttonMessage = {
-                    video: { url: anu.result.nowatermark },
-                    caption: `Download From ${text}`,
-                    footer: 'Press The Button Below',
-                    buttons: buttons,
-                    headerType: 5
-                }
-                GojoMdNx.sendMessage(m.chat, buttonMessage, { quoted: m })
             }
             break
             case 'tiktokwmx': case 'tiktokwatermarkx': {
