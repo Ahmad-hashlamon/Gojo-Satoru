@@ -419,8 +419,8 @@ ${isWin ? `@${winner.split('@')[0]} Won!` : isTie ? `انتهت اللعبة` : 
 
 Please Choose A Suit In The Respective Chat"
 Click https://wa.me/${botNumber.split`@`[0]}`, m, { mentions: [roof.p, roof.p2] })
-	    if (!roof.pilih) GojoMdNx.sendText(roof.p, `Please Select \n\nحجر🗿\nورقة📄\nمقص✂️`, m)
-	    if (!roof.pilih2) GojoMdNx.sendText(roof.p2, `Please Select \n\nحجر🗿\nورقة📄\nمقص✂️`, m)
+	    if (!roof.pilih) GojoMdNx.sendText(roof.p, `يلا اختار \n\nحجر🗿\nورقة📄\nمقص✂️`, m)
+	    if (!roof.pilih2) GojoMdNx.sendText(roof.p2, `يلا اختار \n\nحجر🗿\nورقة📄\nمقص✂️`, m)
 	    roof.waktu_milih = setTimeout(() => {
 	    if (!roof.pilih && !roof.pilih2) GojoMdNx.sendText(m.chat, `بدهمش يلعبو,\nاللعبة تكنسلت`)
 	    else if (!roof.pilih || !roof.pilih2) {
@@ -658,7 +658,7 @@ Waiting @${room.game.currentTurn.split('@')[0]}
             let jawab = `「جبنالك توأمك」◣
 	    
 @${me.split('@')[0]} ❤️ @${jodoh.split('@')[0]}
-「اضغط حبيت او اجلدك」◣`
+「اضغط حبيت او اجلدك」`
             let ments = [me, jodoh]
             let buttons = [
                         { buttonId: 'حبييت', buttonText: { displayText: 'حبييت' }, type: 1 }
@@ -718,7 +718,11 @@ Waiting @${room.game.currentTurn.split('@')[0]}
       case 'ظالم':	
       case 'مبااع':
       case 'صادق':
-      case 'كذاب': {
+      case 'كذاب':  
+      case 'هطف':
+      case 'بومة':
+      case 'تسس':	
+      case 'حيوان': {
             if (!m.isGroup) return replay(`${mess.group}`)
             let member = participants.map(u => u.id)
             let me = m.sender
@@ -754,7 +758,7 @@ case 'halah': case 'hilih': case 'huluh': case 'heleh': case 'holoh':
             tex = m.quoted ? m.quoted.text ? m.quoted.text : q ? q : m.text : q ? q : m.text
             reply(tex.replace(/[aiueo]/g, ter).replace(/[AIUEO]/g, ter.toUpperCase()))
             break
-            case 'reactxxx': {
+            case 'reactxxx': case 'رياكت':  {
                 if (!isCreator) return replay(`${mess.owner}`)
                 reactionMessage = {
                     react: {
@@ -872,11 +876,11 @@ case 'halah': case 'hilih': case 'huluh': case 'heleh': case 'holoh':
                 if (!m.isGroup) return replay(`${mess.group}`)
                 if (!isBotAdmins) return replay(`${mess.botAdmin}`)
                 if (!isAdmins) return replay(`${mess.admin}`)
-let teks = `╚»˙·٠•●♥ المنشن الجماعي ♥●•٠·˙«╝ 
+let teks = `❈••••━━─〈•المنشن الجماعي•〉─━━••••❈ 
  
- ➲ *Message : ${q ? q : 'اصحو يا اموات'}*\n\n`
+ ➲ *الرسالة : ${q ? q : 'اصحو يا اموات'}*\n\n`
                 for (let mem of participants) {
-                teks += `🐦 @${mem.id.split('@')[0]}\n`
+                teks += `🪀╎ @${mem.id.split('@')[0]}\n`
                 }
                 GojoMdNx.sendMessage(m.chat, { text: teks, mentions: participants.map(a => a.id) }, { quoted: m })
                 }
@@ -896,7 +900,7 @@ let teks = `╚»˙·٠•●♥ المنشن الجماعي ♥●•٠·˙«�
                 let anu = await styletext(text)
                 let teks = `Entered Text ${text}\n\n`
                 for (let i of anu) {
-                    teks += `🐦 *${i.name}* : ${i.result}\n\n`
+                    teks += `❃╎ *${i.name}* : ${i.result}\n\n`
                 }
                 reply(teks)
 	    }
@@ -1215,8 +1219,8 @@ break
                     let read = i.readTimestamp
                     let unread = i.receiptTimestamp
                     let waktu = read ? read : unread
-                    teks += `🐦 @${i.userJid.split('@')[0]}\n`
-                    teks += ` ┗━🐦 *الوقت :* ${moment(waktu * 1000).format('DD/MM/YY HH:mm:ss')} 🐦 *الحالة :* ${read ? 'تمت المشاهدة' : 'تم الارسال'}\n\n`
+                    teks += `❃╎ @${i.userJid.split('@')[0]}\n`
+                    teks += ` ┗━❃ *الوقت :* ${moment(waktu * 1000).format('DD/MM/YY HH:mm:ss')} ❃ *الحالة :* ${read ? 'تمت المشاهدة' : 'تم الارسال'}\n\n`
                 }
                 GojoMdNx.sendTextWithMentions(m.chat, teks, m)
             }
@@ -1766,7 +1770,7 @@ const template = generateWAMessageFromContent(m.chat, proto.Message.fromObject({
                 GojoMdNx.relayMessage(m.chat, template.message, { messageId: template.key.id })
                 }
                 break
-                case 'الاوامر': {
+                case 'command': {
 let template = await generateWAMessageFromContent(m.chat, proto.Message.fromObject({
                 listMessage :{
                     title: `Hi ${pushname}`,
@@ -1785,7 +1789,7 @@ let template = await generateWAMessageFromContent(m.chat, proto.Message.fromObje
 								]
 							},
 							{
-								"title": "Bot Features",
+								"title": "القوائم",
 								"rows": [
 									{
 										"title": "كل الاوامر",
@@ -1802,29 +1806,19 @@ let template = await generateWAMessageFromContent(m.chat, proto.Message.fromObje
 										"description": "الاوامر الخاصة بالقروب",
 										"rowId": `${prefix}groupmenu`
 										},
-									{
+									    {
 										"title": "اوامر الالعاب",
 										"description": "فيها اوامر العاب البوت",
 										"rowId": `${prefix}rpgmenu`
-									},
-									{
-										"title": "اوامر التنزيل",
-										"description": " اوامر تنزيل الوسائط",
-										"rowId": `${prefix}downloadmenu`
-									},
-									{
-										"title": "اوامر البحث",
-										"description": "اوامر تختص بالبحث",
+									        },
+								        	{
+										"title": "اوامر البحث والتنزيل",
+										"description": " اوامر تختص بالبحث والتنزيل",
 										"rowId": `${prefix}searchmenu`
-									},
-									{
-											"title": "اوامر عشوائية",
-										"description": "Displays The List Of Random Features",
-										"rowId": `${prefix}randommenu`
-										},
-										{
-											"title": "Random Anime Menu",
-										"description": "Displays The List Of Random Anime Features",
+									        },
+									        {
+											"title": "ستيكرات انمي",
+										"description": "ردود فعل بملصقات انمي",
 										"rowId": `${prefix}randomanimemenu`
 										},
 										{
@@ -1837,26 +1831,8 @@ let template = await generateWAMessageFromContent(m.chat, proto.Message.fromObje
 										"description": "Displays The List Of Convert Features",
 										"rowId": `${prefix}convertmenu`
 										},
-										{
-											"title": "Database Menu",
-										"description": "Displays The List Of Database Features",
-										"rowId": `${prefix}databasemenu`
-										},
-										{
-											"title": "Voice Changer Menu",
-										"description": "Displays The List Of Voice Changing Features",
-										"rowId": `${prefix}voicechangermenu`
-										},
-										{
-											"title": "TXT-to-IMG Menu",
-										"description": "Displays The List Of Textpro Features",
-										"rowId": `${prefix}textpromenu`
-										},
-										{
-											"title": "اوامر اضافية",
-										"description": "Displays The List Of Horoscope Features",
-										"rowId": `${prefix}horoscopemenu`
-										}
+										
+										
 								]
 							},
 							
@@ -1869,8 +1845,8 @@ let template = await generateWAMessageFromContent(m.chat, proto.Message.fromObje
             break
 case 'allmenu': {
   	anu = `
-┏━「 *${botname}* 」━━⭓ 
-┃╔══☯︎「 الرئيسية 」☯︎
+┓━「 البوت ${botname} 」━━⭓ 
+┃╗══☯︎「 الرئيسية 」☯︎
 ┃╣ نشط
 ┃╣ اختبار السرعة
 ┃╣ بينق
@@ -1882,122 +1858,129 @@ case 'allmenu': {
 ┃╣ اخر رد للبوت
 ┃╣ مستخدمين البوت خاص
 ┃╣ مستخدمين البوت بالقروب
-┃╠══✪「 OWNER 」 ☯︎
-┃╠ ${prefix}chat [option]
-┃╠ ${prefix}join [link]
-┃╠ ${prefix}leave
-┃╠ ${prefix}block [user]
-┃╠ ${prefix}unblock [user]
-┃╠ ${prefix}bcgroup [text]
-┃╠ ${prefix}bcall [text]
-┃╠ ${prefix}setppbot [image]
-┃╠ ${prefix}setexif
-┃╠══✪「 GROUP 」 ☯︎      
-┃╠${prefix}grouplink
-┃╠${prefix}setgcpp [image]
-┃╠${prefix}setname [text]
-┃╠${prefix}setdesc [text]
-┃╠${prefix}group [text]
-┃╠${prefix}editinfo [option]
-┃╠${prefix}add [user]
-┃╠${prefix}kick [reply/tag]
-┃╠${prefix}hidetag [text]
-┃╠${prefix}tagall [text]
-┃╠${prefix}antilink [on/off]
-┃╠${prefix}mute [on/off]
-┃╠${prefix}promote [reply/tag]
-┃╠${prefix}demote [reply/tag]
-┃╠${prefix}vote
-┃╠${prefix}devote
-┃╠${prefix}upvote
-┃╠${prefix}checkvote
-┃╠${prefix}delvote
-┃╠══✪「 SEARCHER 」 ☯︎
-┃╠${prefix}play [query]
-┃╠${prefix}song [query]
-┃╠${prefix}yts [query]
-┃╠${prefix}gimage [query]
-┃╠${prefix}pinterest [query]
-┃╠${prefix}wallpaper [query]
-┃╠══✪「 RANDOM 」☯︎
-┃╠${prefix}coffee
-┃╠${prefix}animequote (indo)
-┃╠${prefix}couplepp
-┃╠═✪「 RANDOM ANIME 」☯︎
-┃╠${prefix}bully
-┃╠${prefix}cuddle
-┃╠${prefix}cry
-┃╠${prefix}hug
-┃╠${prefix}pat
-┃╠${prefix}smug
-┃╠${prefix}bonk
-┃╠${prefix}yeet
-┃╠${prefix}blush
-┃╠${prefix}smile
-┃╠${prefix}wave
-┃╠${prefix}highfive
-┃╠${prefix}handhold
-┃╠${prefix}nom
-┃╠${prefix}glomp
-┃╠${prefix}bite
-┃╠${prefix}slap
-┃╠${prefix}kill
-┃╠${prefix}happy
-┃╠${prefix}wink
-┃╠${prefix}poke
-┃╠${prefix}dance
-┃╠${prefix}cringe
-┃╠══✪「 FUN 」 ☯︎
-┃╠ ${prefix}couple
-┃╠ ${prefix}mysoulmate
-┃╠ ${prefix}kind
-┃╠ ${prefix}idiot
-┃╠ ${prefix}handsome
-┃╠ ${prefix}beautiful
-┃╠ ${prefix}cute
-┃╠ ${prefix}pretty
-┃╠ ${prefix}lesbian
-┃╠ ${prefix}noob
-┃╠ ${prefix}bastard
-┃╠ ${prefix}foolish
-┃╠ ${prefix}nerd
-┃╠ ${prefix}asshole
-┃╠ ${prefix}gay
-┃╠ ${prefix}smart
-┃╠ ${prefix}stubble
-┃╠ ${prefix}dog
-┃╠ ${prefix}horny
-┃╠ ${prefix}cunt
-┃╠ ${prefix}wibu
-┃╠═══✪「 CONVERTER 」 ☯︎
-┃╠ ${prefix}toimage [reply stick]
-┃╠ ${prefix}sticker [reply img|gif]
-┃╠ ${prefix}emojimix [moji+moji]
-┃╠ ${prefix}tovideo [reply img]
-┃╠ ${prefix}togif [reply stick]
-┃╠ ${prefix}tourl [reply img]
-┃╠ ${prefix}tovn [reply aud]
-┃╠ ${prefix}tomp3 [reply vn]
-┃╠ ${prefix}toaudio [reply vid]
-┃╠ ${prefix}styletext [text]
-┃╠══✪「 games 」 ☯︎
-┃╠ ${prefix}tictactoe
-┃╠ ${prefix}delttt
-┃╠ ${prefix}suitpvp [tag]
-┃╠═✪「 VOICE CHANGER 」☯︎
-┃╠${prefix}bass [reply aud]
-┃╠${prefix}blown [reply aud]
-┃╠${prefix}deep [reply aud]
-┃╠${prefix}earrape [reply aud]
-┃╠${prefix}fast [reply aud]
-┃╠${prefix}fat [reply aud]
-┃╠${prefix}nightcore [reply aud]
-┃╠${prefix}reverse [reply aud]
-┃╠${prefix}robot [reply aud]
-┃╠${prefix}slow [reply aud]
-┃╠${prefix}squirrel [reply aud]
-┃╚═══════✍︎Hikari
-┗━「 *Created By ${ownername}*  𖠌」━⭓`
+┃╣══✪「 المالك 」 ☯︎
+┃╣ محادثة
+┃╣ انضمام「رابط」
+┃╣ مغادرة「رابط」
+┃╣ حظر「مستخدم」
+┃╣ الغاءالحظر「مستخدم」
+┃╣ رسالة جماعية للقروبات「نص」
+┃╣ رسالة جماعية للكل「نص」
+┃╣ استخدام عام
+┃╣ استخدام خاص
+┃╣ خلفية البوت「صورة」
+┃╣ رياكت
+┃╣ رياكشن
+┃╣ حقوق الستيكر/حقوق
+┃╣══✪「 القروب 」 ☯︎      
+┃╣ رابط القروب
+┃╣ افتار قروب/افتار 「صورة」
+┃╣ تغيير الاسم 「نص」
+┃╣ تغيير الوصف 「نص」
+┃╣ فتح/اغلاق القروب
+┃╣ اعدادات القروب
+┃╣ اضافة「تاغ/رد」
+┃╣ طرد「تاغ/رد」
+┃╣ المنشن الجماعي「نص」
+┃╣ المنشن الخفي「نص」
+┃╣ المتصلين
+┃╣ اولافين「لتجنب ازعاج المنشن」
+┃╣ مضاد الروابط「تشغيل/ايقاف」
+┃╣ كتم البوت「تشغيل/ايقاف」
+┃╣ ترقية「تاغ/رد」
+┃╣ تخفيض「تاغ/رد」
+┃╣ تصويت
+┃╣ موافق/غير موافق
+┃╣ نتيجة التصويت
+┃╣ حذف التصويت
+┃╣══✪「 البحث والتنزيل 」 ☯︎
+┃╣ اغنية/فيديو
+┃╣ صورة
+┃╣ بينتيريست
+┃╣ خلفية
+┃╣ شاي/قهوة
+┃╣ حذف
+┃╣ اقتباس انمي
+┃╣ تطقيم
+┃╣ ساوند كلاود
+┃╣═✪「 ستيكرات الانمي 」☯︎
+┃╣ سعيد | happy
+┃╣ حزين| cry
+┃╣ تربيت | pat
+┃╣ حضن | hug
+┃╣ كرنج | cringe
+┃╣ اليد | handhold
+┃╣ عناق | cuddle
+┃╣ كئيب | glomp
+┃╣ متعجرف | smug
+┃╣ صفع | slap
+┃╣ قتل | kill
+┃╣ خجل | blush
+┃╣ ابتسامة | smile
+┃╣ يأكل | nom
+┃╣ عض | bite
+┃╣ يلوح بيده | wave
+┃╣ غمزة | wink
+┃╣ ضرب | bonk
+┃╣ تنمر | bully
+┃╣══✪「 ترفيه 」 ☯︎
+┃╣ التوأم الروحي
+┃╣ تشبيك
+┃╣ غبي
+┃╣ حمار
+┃╣ ذكي
+┃╣ منحرف
+┃╣ محبوب 
+┃╣ كلب
+┃╣ احمق
+┃╣ قرد
+┃╣ كريه
+┃╣ مكروه
+┃╣ هطف
+┃╣ خروف
+┃╣ ورع
+┃╣ مخادع
+┃╣ مظلوم
+┃╣ مسكين
+┃╣ جميل
+┃╣ طيب
+┃╣ محترم
+┃╣ زفت
+┃╣ وصخ
+┃╣ حزين
+┃╣ مجنون
+┃╣ بشع
+┃╣ صنم
+┃╣ شجاع
+┃╣ مضحك
+┃╣ مستفز
+┃╣ تسس
+┃╣ عاقل
+┃╣ محتال
+┃╣ مؤدب
+┃╣ غامض
+┃╣ ظالم
+┃╣ صادق
+┃╣ كذاب
+┃╣ بومة
+┃╣ حيوان
+┃╣═══✪「 تحويل 」 ☯︎
+┃╣ لصورة「ستيكر」
+┃╣ ستيكر「صورة او جيف」
+┃╣ لفيديو「ستيكر」
+┃╣ لجيف「ستيكر」
+┃╣ لرابط「صورة」
+┃╣ لصوت「فيديو」
+┃╣ دمج ايموجي/دمج「ايموجي+ايموجي」
+┃╣ ازالة الخلفية「صورة」
+┃╣ زخرفة「انجليزي فقط」
+┃╣══✪「 العاب 」 ☯︎
+┃╣ اكس او
+┃╣ حذف اكس او
+┃╣ حجر ورقة مقص「منشن」
+┃╣ رياضيات
+┃╝═══════هيكاري⚡
+┛━「 صنع بواسطة ${ownername}  𖠌」━⭓`
     const template = generateWAMessageFromContent(m.chat, proto.Message.fromObject({
                     templateMessage: {
                         hydratedTemplate: {
@@ -2058,7 +2041,7 @@ await GojoMdNx.send5ButImg(from, `` + '' + ' ', `
 ┃╣ المنشن الجماعي「نص」
 ┃╣ المنشن الخفي「نص」
 ┃╣ المتصلين
-┃╣ اولافين「لتجنب ازعاج المنشن」
+┃╣ اوفلاين「لتجنب ازعاج المنشن」
 ┃╣ مضاد الروابط「تشغيل/ايقاف」
 ┃╣ كتم البوت「تشغيل/ايقاف」
 ┃╣ ترقية「تاغ/رد」
@@ -2152,6 +2135,7 @@ await GojoMdNx.send5ButImg(from, `` + '' + ' ', `
 ┃╣ استخدام عام
 ┃╣ استخدام خاص
 ┃╣ خلفية البوت「صورة」
+┃╣ رياكت
 ┃╣ رياكشن
 ┃╣ حقوق الستيكر/حقوق
 ┃╝═════≪كيو⚡≫═════✪
