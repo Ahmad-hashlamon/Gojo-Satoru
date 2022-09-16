@@ -60,7 +60,7 @@ async function startGojoMdNx() {
     const GojoMdNx = NexusNwIncConnect({
         logger: pino({ level: 'silent' }),
         printQRInTerminal: true,
-        browser: ['Gojo Satoru\Nexus','Safari','1.0.0'],
+        browser: ['Gojo Satoru\Ahmad-hashlamon','Safari','1.0.0'],
         auth: state
     })
 
@@ -104,15 +104,15 @@ async function startGojoMdNx() {
        }
        let wm_fatih = { url : ppgc }
        if (pea[0].announce == true) {
-       GojoMdNx.send5ButImg(pea[0].id, `「 Group Settings Changed 」\n\nThe Group Has Been Closed By Admin, Now Only Admin Can Send Messages !`, `Group Settings Change Message`, wm_fatih, [])
+       GojoMdNx.send5ButImg(pea[0].id, `「 Group Settings Changed 」\n\nالقروب تقفل , تخيلو اقدر ارسل وانتو لا😂`, `اعدادات القروب تغيرت`, wm_fatih, [])
        } else if(pea[0].announce == false) {
-       GojoMdNx.send5ButImg(pea[0].id, `「 Group Settings Changed 」\n\nThe Group Has Been Opened By Admin, Now Participants Can Send Messages !`, `Group Settings Change Message`, wm_fatih, [])
+       GojoMdNx.send5ButImg(pea[0].id, `「 Group Settings Changed 」\n\nالقروب انفتح خلاص تنفسو`, `اعدادات القروب تغيرت`, wm_fatih, [])
        } else if (pea[0].restrict == true) {
-       GojoMdNx.send5ButImg(pea[0].id, `「 Group Settings Changed 」\n\nGroup Info Has Been Restricted, Now Only Admin Can Edit Group Info !`, `Group Settings Change Message`, wm_fatih, [])
+       GojoMdNx.send5ButImg(pea[0].id, `「 Group Settings Changed 」\n\nورع محد يقدر يعدل ع القروب الحين الا الادمن`, `اعدادات القروب تغيرت`, wm_fatih, [])
        } else if (pea[0].restrict == false) {
-       GojoMdNx.send5ButImg(pea[0].id, `「 Group Settings Changed 」\n\nGroup Info Has Been Opened, Now Participants Can Edit Group Info !`, `Group Settings Change Message`, wm_fatih, [])
+       GojoMdNx.send5ButImg(pea[0].id, `「 Group Settings Changed 」\n\nالحين يقدرو الاعضاء يعدلو ع القروب بس لا تجيبو العيد`, `اعدادات القروب تغيرت`, wm_fatih, [])
        } else {
-       GojoMdNx.send5ButImg(pea[0].id, `「 Group Settings Changed 」\n\nGroup Subject Has Been Changed To *${pea[0].subject}*`, `Group Settings Change Message`, wm_fatih, [])
+       GojoMdNx.send5ButImg(pea[0].id, `「 Group Settings Changed 」\n\nتغير اسم القروب ل *${pea[0].subject}*`, `اعدادات القروب تغيرت`, wm_fatih, [])
      }
     })
 
@@ -126,35 +126,38 @@ async function startGojoMdNx() {
                 try {
                     ppuser = await GojoMdNx.profilePictureUrl(num, 'image')
                 } catch {
-                    ppuser = 'https://i0.wp.com/www.gambarunik.id/wp-content/uploads/2019/06/Top-Gambar-Foto-Profil-Kosong-Lucu-Tergokil-.jpg'
+                    ppuser = 'https://telegra.ph/file/f237586eed2cf9d345d6e.jpg'
                 }
 
                 //Get Profile Picture Group\\
                 try {
                     ppgroup = await GojoMdNx.profilePictureUrl(anu.id, 'image')
                 } catch {
-                    ppgroup = 'https://i0.wp.com/www.gambarunik.id/wp-content/uploads/2019/06/Top-Gambar-Foto-Profil-Kosong-Lucu-Tergokil-.jpg'
+                    ppgroup = 'https://telegra.ph/file/f237586eed2cf9d345d6e.jpg'
                 }
 
 //welcome\\
         let nama = await GojoMdNx.getName(num)
 memb = metadata.participants.length
 
-Kon = await getBuffer(`https://hardianto.xyz/api/welcome3?profile=${encodeURIComponent(ppuser)}&name=${encodeURIComponent(nama)}&bg=https://telegra.ph/file/8bbe8a7de5c351dfcb077.jpg&namegb=${encodeURIComponent(metadata.subject)}&member=${encodeURIComponent(memb)}`)
+Kon = await getBuffer(`https://hardianto.xyz/api/welcome3?profile=${encodeURIComponent(ppuser)}&name=${encodeURIComponent(nama)}&bg=https://telegra.ph/file/4a95837413385e5a11c74.jpg&namegb=${encodeURIComponent(metadata.subject)}&member=${encodeURIComponent(memb)}`)
 
-Tol = await getBuffer(`https://hardianto.xyz/api/goodbye3?profile=${encodeURIComponent(ppuser)}&name=${encodeURIComponent(nama)}&bg=https://telegra.ph/file/8bbe8a7de5c351dfcb077.jpg&namegb=${encodeURIComponent(metadata.subject)}&member=${encodeURIComponent(memb)}`)
+Tol = await getBuffer(`https://hardianto.xyz/api/goodbye3?profile=${encodeURIComponent(ppuser)}&name=${encodeURIComponent(nama)}&bg=https://telegra.ph/file/4a95837413385e5a11c74.jpg&namegb=${encodeURIComponent(metadata.subject)}&member=${encodeURIComponent(memb)}`)
                 if (anu.action == 'add') {
                     GojoMdNx.sendMessage(anu.id, { image: Kon, contextInfo: { mentionedJid: [num] }, caption: `
-⭐✑ Hi👋 @${num.split("@")[0]},
-⭐✑ Welcome To ${metadata.subject}
+⭐✑ نورت يا @${num.split("@")[0]},
+⭐✑ اهلا بك في ${metadata.subject}
 
-⭐✑ Description: ${metadata.desc}
-
-⭐✑ Welcome To Our Comfortable Happy😋, Sometimes Loud😜, Usually Messy🤥, Full Of Love🥰, HOME😌!!`} )
+⭐✑ اهلا وسهلا بك في نقابتنا ، ها هي ايادينا نمدها لك ترحيبا وحفاوه آملين أن تقضي بصحبتنا  أسعد و أطيب الأوقات `} )
+			let buttons = [
+                        { buttonId: 'ايش ذا النور', buttonText: { displayText: '*🖤ايش ذا النور🖤*' }, type: 1 }
+                }
                 } else if (anu.action == 'remove') {
-                    GojoMdNx.sendMessage(anu.id, { image: Tol, contextInfo: { mentionedJid: [num] }, caption: `⭐✑ @${num.split("@")[0]} Left ${metadata.subject}
+                    GojoMdNx.sendMessage(anu.id, { image: Tol, contextInfo: { mentionedJid: [num] }, caption: `⭐✑ @${num.split("@")[0]} خرج من ${metadata.subject}
 
-⭐✑ I'm Not Sure If It Was A Goodbye Charm, But It Was Fun While It Lasted 😌✨` })
+⭐✑ *الي يروح يجي الف غيره* ` })
+			 let buttons = [
+                        { buttonId: 'الي يغور يجي مكانه طابور', buttonText: { displayText: '*🥀مع السلامة الي يغور يجي مكانة طابور🥀*' }, type: 1 }
                 }
             }
         } catch (err) {
