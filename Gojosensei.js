@@ -229,7 +229,7 @@ const reply = (teks) => {
             console.log('Limit Reseted')
         }, {
             scheduled: true,
-            timezone: "Asia/Kolkata"
+            timezone: "Asia/hebron"
         })
         
 	//auto set bio\\
@@ -541,7 +541,7 @@ ${arr.slice(6).join('')}
 
 Waiting @${room.game.currentTurn.split('@')[0]}
 
-Type *surrender* to surrender and admit defeat`
+اكتب *استسلام* للخسارة والاستسلام`
             if (room.x !== room.o) await GojoMdNx.sendText(room.x, str, m, { mentions: parseMention(str) } )
             await GojoMdNx.sendText(room.o, str, m, { mentions: parseMention(str) } )
             } else {
@@ -600,7 +600,7 @@ Type *surrender* to surrender and admit defeat`
             }
             }
             break
-            case 'محادثة': {
+            case 'محادثة': case 'chat': {
                 if (!isCreator) return replay(`${mess.owner}`)
                 if (!q) return replay(`Option : 1. mute\n2. unmute\n3. archive\n4. unarchive\n5. read\n6. unread\n7. delete`)
                 if (args[0] === 'كتم') {
@@ -621,7 +621,7 @@ Type *surrender* to surrender and admit defeat`
              }
             break
 		
-	case 'رياكشن': {
+	case 'رياكشن': case 'react': {
                 if (!isCreator) throw mess.owner
                 reactionMessage = {
                     react: {
@@ -779,7 +779,7 @@ case 'halah': case 'hilih': case 'huluh': case 'heleh': case 'holoh':
                 await GojoMdNx.groupLeave(m.chat).then((res) => reply(jsonformat(res))).catch((err) => reply(jsonformat(err)))
             }
             break
-            case 'حقوق': {
+            case 'حقوق': case 'الستيكر حقوق': {
                if (!isCreator) return replay(`${mess.owner}`)
                if (!text) return replay(`مثال : ${prefix + command} اسم الحزمة|صاحب الحزمة`)
           global.packname = text.split("|")[0]
@@ -831,7 +831,7 @@ case 'halah': case 'hilih': case 'huluh': case 'heleh': case 'holoh':
 		await GojoMdNx.updateBlockStatus(users, 'unblock').then((res) => reply(jsonformat(res))).catch((err) => reply(jsonformat(err)))
 	}
 	break
-	    case 'setname': case 'تغيير الاسم': case 'الاسم': {
+	    case 'setname': case 'تغيير الاسم': case 'اسم القروب': {
                 if (!m.isGroup) return replay(`${mess.group}`)
                 if (!isBotAdmins) return replay(`${mess.botAdmin}`)
                 if (!isAdmins) replay(`${mess.admin}`)
@@ -888,7 +888,7 @@ let teks = `╚»˙·٠•●♥ المنشن الجماعي ♥●•٠·˙«�
             GojoMdNx.sendMessage(m.chat, { text : q ? q : '' , mentions: participants.map(a => a.id)}, { quoted: m })
             }
             break
-	    case 'style': case 'styletext': {
+	    case 'زخرفة': case 'styletext': {
 	        if (!isPremium && global.db.data.users[m.sender].limit < 1) return reply(mess.endLimit) //wont response when limit runs out\\
 		db.data.users[m.sender].limit -= 1 // -1 limit
 		let { styletext } = require('./lib/scraper')
@@ -901,7 +901,7 @@ let teks = `╚»˙·٠•●♥ المنشن الجماعي ♥●•٠·˙«�
                 reply(teks)
 	    }
 	    break
-               case 'vote': {
+               case 'vote':case 'تصويت': {
             if (!m.isGroup) return replay(`${mess.group}`)
             if (m.chat in vote) replay(`_There Are Still Votes In This Chat!_\n\n*${prefix}delvote* - To Delete Vote Session`)
             if (!text) return replay(`Enter Reason For Vote, Example: *${prefix + command} Handsome Owner*`)
@@ -930,8 +930,8 @@ let teks = `╚»˙·٠•●♥ المنشن الجماعي ♥●•٠·˙«�
 
 *${prefix}delvote* - To Delete Vote Session`
 let buttonsVote = [
-  {buttonId: `${prefix}upvote`, buttonText: {displayText: 'Upvote'}, type: 1},
-  {buttonId: `${prefix}devote`, buttonText: {displayText: 'Devote'}, type: 1}
+  {buttonId: `${prefix}upvote`, buttonText: {displayText: 'موافق'}, type: 1},
+  {buttonId: `${prefix}devote`, buttonText: {displayText: 'غير موافق'}, type: 1}
 ]
 
             let buttonMessageVote = {
@@ -943,7 +943,7 @@ let buttonsVote = [
             GojoMdNx.sendMessage(m.chat, buttonMessageVote)
 	    }
             break
-               case 'upvote': {
+               case 'موافق': {
             if (!m.isGroup) return replay(`${mess.group}`)
             if (!(m.chat in vote)) return replay(`_*No Voting In This Group!*_\n\n*${prefix}vote* - To Start Voting`)
             isVote = vote[m.chat][1].concat(vote[m.chat][2])
@@ -971,8 +971,8 @@ ${vote[m.chat][2].map((v, i) => `┃╠ ${i + 1}. @${v.split`@`[0]}`).join('\n')
 
 *${prefix}delvote* - To Delete Vote Session`
             let buttonsUpvote = [
-              {buttonId: `${prefix}upvote`, buttonText: {displayText: 'Upvote'}, type: 1},
-              {buttonId: `${prefix}devote`, buttonText: {displayText: 'Devote'}, type: 1}
+              {buttonId: `${prefix}upvote`, buttonText: {displayText: 'موافق'}, type: 1},
+              {buttonId: `${prefix}devote`, buttonText: {displayText: 'غير موافق'}, type: 1}
             ]
 
             let buttonMessageUpvote = {
@@ -985,7 +985,7 @@ ${vote[m.chat][2].map((v, i) => `┃╠ ${i + 1}. @${v.split`@`[0]}`).join('\n')
             GojoMdNx.sendMessage(m.chat, buttonMessageUpvote)
 	    }
              break
-                case 'devote': {
+                case 'غير موافق': {
             if (!m.isGroup) return replay(`${mess.group}`)
             if (!(m.chat in vote)) return replay(`_*No Voting In This Group!*_\n\n*${prefix}vote* - To Start Voting`)
             isVote = vote[m.chat][1].concat(vote[m.chat][2])
@@ -1013,8 +1013,8 @@ ${vote[m.chat][2].map((v, i) => `┃╠ ${i + 1}. @${v.split`@`[0]}`).join('\n')
 
 *${prefix}delvote* - To Delete Vote Session`
             let buttonsDevote = [
-              {buttonId: `${prefix}upvote`, buttonText: {displayText: 'Upvote'}, type: 1},
-              {buttonId: `${prefix}devote`, buttonText: {displayText: 'Devote'}, type: 1}
+              {buttonId: `${prefix}upvote`, buttonText: {displayText: 'موافق'}, type: 1},
+              {buttonId: `${prefix}devote`, buttonText: {displayText: 'غير موافق'}, type: 1}
             ]
 
             let buttonMessageDevote = {
@@ -1028,7 +1028,7 @@ ${vote[m.chat][2].map((v, i) => `┃╠ ${i + 1}. @${v.split`@`[0]}`).join('\n')
 	}
             break
                  
-case 'checkvote':
+case 'نتيجة التصويت':
 if (!m.isGroup) return replay(`${mess.group}`)
 if (!(m.chat in vote)) return replay(`_*No Voting In This Group!*_\n\n*${prefix}vote* - To Start Voting`)
 teks_vote = `*「 VOTE 」*
@@ -1056,7 +1056,7 @@ ${vote[m.chat][2].map((v, i) => `┃╠ ${i + 1}. @${v.split`@`[0]}`).join('\n')
 `
 GojoMdNx.sendTextWithMentions(m.chat, teks_vote, m)
 break
-		case 'deletevote': case'delvote': case 'hapusvote': {
+		case 'deletevote': case'delvote': case 'حذف التصويت': {
             if (!m.isGroup) return replay(`${mess.group}`)
             if (!(m.chat in vote)) return replay(`_*No Voting In This Group!*_\n\n*${prefix}vote* - To Start Voting`)
             delete vote[m.chat]
@@ -1081,7 +1081,7 @@ break
              }
             }
             break
-            case 'editinfo': {
+            case 'editinfo': case 'اعدادات القروب': {
                 if (!m.isGroup) return replay(`${mess.group}`)
                 if (!isBotAdmins) return replay(`${mess.botAdmin}`)
                 if (!isAdmins) return replay(`${mess.admin}`)
@@ -1238,7 +1238,7 @@ break
                  GojoMdNx.sendTextWithMentions(m.chat, teks, m)
              }
              break
-             case 'tagonline': case 'onlinelistxxx': case 'منشن الاونلاين': {
+             case 'tagonline': case 'onlinelistxxx': case 'المتصلين': {
                     let id = args && /\d+\-\d+@g.us/.test(args[0]) ? args[0] : m.chat
                     let online = [...Object.keys(store.presences[id]), botNumber]
                     GojoMdNx.sendText(m.chat, 'Online List:\n\n' + online.map(v => '🐦 @' + v.replace(/@.+/, '')).join`\n`, m, { mentions: online })
@@ -1568,13 +1568,13 @@ ${Object.entries(global.db.data.sticker).map(([key, value], index) => `${index +
                 reply('Done!')
             }
             break
-	        case 'public': {
+	        case 'public': case 'استخدام عام': {
                 if (!isCreator) return replay(`${mess.owner}`)
                 GojoMdNx.public = true
                 reply('تم تفعيل الاستخدام العام')
             }
             break
-            case 'self': {
+            case 'self': case 'استخدام خاص': {
                 if (!isCreator) return replay(`${mess.owner}`)
                 GojoMdNx.public = false
                 reply('تم تفعيل الاستخدام الشخصي')
@@ -1648,7 +1648,7 @@ ${cpus.map((cpu, i) => `${i + 1}. ${cpu.model.trim()} (${cpu.speed} MHZ)\n${Obje
                 GojoMdNx.sendContact(m.chat, global.owner, m)
             }
             break
-case 'بكاء':case 'قتل':case 'حضن':case 'تربيت':case 'تنمر':case 'ضرب':case 'غمزة':case 'نكز':case 'اكل':case 'كف':case 'ابتسامة':case 'هاي':case 'خجل':case 'متعجرف':case 'كئيب':case 'سعيد':case 'رقص':case 'كرنج':case 'يحضن':case 'كفك':case 'تشبيك ايادي':
+case 'cry':case 'kill':case 'hug':case 'pat':case 'lick':case 'kiss':case 'bite':case 'yeet':case 'neko':case 'bully':case 'bonk':case 'wink':case 'poke':case 'nom':case 'slap':case 'smile':case 'wave':case 'awoo':case 'blush':case 'smug':case 'glomp':case 'happy':case 'dance':case 'cringe':case 'cuddle':case 'highfive':case 'shinobu':case 'megumin':case 'handhold':
 					reply(mess.wait)
 					axios.get(`https://api.waifu.pics/sfw/${command}`)
 					.then(({data}) => {
@@ -1751,7 +1751,7 @@ const template = generateWAMessageFromContent(m.chat, proto.Message.fromObject({
                                 }
                                 }, {
                                 quickReplyButton: {
-                                    displayText: 'قا~مة الاوامر',
+                                    displayText: 'قائمة الاوامر',
                                     id: `${prefix}command`
                                 }
                                 }, {
@@ -2024,133 +2024,155 @@ break
 case 'mainmenu':
 var unicorn = await getBuffer(picak+'Main Menu')
 await GojoMdNx.send5ButImg(from, `` + '' + ' ', `
-┏━「 ${botname} 」━━⭓ 
-┃╔═✪「 MAIN 」
-┃╠ ${prefix}alive
-┃╠ ${prefix}speedtest
-┃╠ ${prefix}ping
-┃╠ ${prefix}owner
-┃╠ ${prefix}menu
-┃╠ ${prefix}delete
-┃╠ ${prefix}chatinfo
-┃╠ ${prefix}quoted
-┃╠ ${prefix}listpc
-┃╠ ${prefix}listgc
-┃╚═════════════✪
-┗━━「 ${pushname} 」━⭓`,unicorn, [{"urlButton": {"displayText": "YouTube 📍","url": `${myweb}`}},{"urlButton": {"displayText": "Script🔖","url": `${sc}`}},{"quickReplyButton": {"displayText": "🍜Donate🍜","id": 'donate'}},{"quickReplyButton": {"displayText": "👤Owner👤","id": 'owner'}}] )
+┓━「 البوت ${botname} 」━━⭓ 
+┃╗═✪「 القائمة الرئيسية 」
+┃╣ نشط
+┃╣ اختبار السرعة
+┃╣ بينق
+┃╣ المالك
+┃╣ القائمة
+┃╣ حذف
+┃╣ حالة الرسائل
+┃╣ اخر رد للبوت
+┃╣ مستخدمين البوت خاص
+┃╣ مستخدمين البوت بالقروب
+┃╝═════≪كيو⚡≫═════✪
+┛━━「تعال كليوم يا ${pushname} 」━⭓
+┗━━「 ${pushname} 」━⭓`,unicorn, [{"urlButton": {"displayText": "👤Owner👤","id": 'owner'}}] )
 break
-
 case 'grupmenu': case 'groupmenu':
 var unicorn = await getBuffer(picak+'Group Menu')
 await GojoMdNx.send5ButImg(from, `` + '' + ' ', `
-┏━「 ${botname} 」━━⭓ 
-┃╔═✪「 GROUP 」	  
-┃╠${prefix}grouplink
-┃╠${prefix}setgcpp [image]
-┃╠${prefix}setname [text]
-┃╠${prefix}setdesc [text]
-┃╠${prefix}group [text]
-┃╠${prefix}editinfo [option]
-┃╠${prefix}add [user]
-┃╠${prefix}kick [reply/tag]
-┃╠${prefix}hidetag [text]
-┃╠${prefix}tagall [text]
-┃╠${prefix}antilink [on/off]
-┃╠${prefix}mute [on/off]
-┃╠${prefix}promote [reply/tag]
-┃╠${prefix}demote [reply/tag]
-┃╠${prefix}vote
-┃╠${prefix}devote
-┃╠${prefix}upvote
-┃╠${prefix}checkvote
-┃╠${prefix}delvote
+┓━「 البوت ${botname} 」━━⭓ 
+┃╗═✪「 اوامر القروب 」
+┃╣ رابط القروب
+┃╣ افتار قروب/افتار 「صورة」
+┃╣ تغيير الاسم 「نص」
+┃╣ تغيير الوصف 「نص」
+┃╣ فتح/اغلاق القروب
+┃╣ اعدادات القروب
+┃╣ اضافة「تاغ/رد」
+┃╣ طرد「تاغ/رد」
+┃╣ المنشن الجماعي「نص」
+┃╣ المنشن الخفي「نص」
+┃╣ المتصلين
+┃╣ اولافين「لتجنب ازعاج المنشن」
+┃╣ مضاد الروابط「تشغيل/ايقاف」
+┃╣ كتم البوت「تشغيل/ايقاف」
+┃╣ ترقية「تاغ/رد」
+┃╣ تخفيض「تاغ/رد」
+┃╣ تصويت
+┃╣ موافق/غير موافق
+┃╣ نتيجة التصويت
+┃╣ حذف التصويت
+┃╝═════≪كيو⚡≫═════✪
+┛━━「تعال كليوم يا ${pushname} 」━⭓
 ┃╚═════════════✪
-┗━━「 ${pushname} 」━⭓`,unicorn, [{"urlButton": {"displayText": "YouTube📍","url": `${myweb}`}},{"urlButton": {"displayText": "Script🔖","url": `${sc}`}},{"quickReplyButton": {"displayText": "🍜Donate🍜","id": 'donate'}},{"quickReplyButton": {"displayText": "👤Owner👤","id": 'owner'}}] )
+┗━━「 هلا ${pushname} 」━⭓`,unicorn, [{"urlButton": {"displayText": "👤Owner👤","id": 'owner'}}] )
 break
 
 case 'rpgmenu':
 var unicorn = await getBuffer(picak+'Rpg Menu')
 await GojoMdNx.send5ButImg(from, `` + '' + ' ', `
-┏━「 ${botname} 」━━⭓ 
-┃╔═✪「 games 」	        
-┃╠ ${prefix}tictactoe
-┃╠ ${prefix}delttt
-┃╠ ${prefix}suitpvp [tag]
-┃╚═════════════✪
-┗━━「 ${pushname} 」━⭓`,unicorn, [{"urlButton": {"displayText": "YouTube📍","url": `${myweb}`}},{"urlButton": {"displayText": "Script🔖","url": `${sc}`}},{"quickReplyButton": {"displayText": "🍜Donate🍜","id": 'donate'}},{"quickReplyButton": {"displayText": "👤Owner👤","id": 'owner'}}] )
+┓━「 البوت ${botname} 」━━⭓ 
+┃╗═✪「 اوامر الالعاب 」
+┃╣ اكس او
+┃╣ حذف اكس او
+┃╣ حجر ورقة مقص「منشن」
+┃╣ رياضيات
+┃╝═════≪كيو⚡≫═════✪
+┛━━「تعال كليوم يا ${pushname} 」━⭓
+┗━━「 ${pushname} 」━⭓`,unicorn, [{"urlButton": {"displayText": "👤Owner👤","id": 'owner'}}] )
 break
 
 case 'funmenu':
 var unicorn = await getBuffer(picak+'Fun Menu')
 await GojoMdNx.send5ButImg(from, `` + '' + ' ', `
-┏━「 ${botname} 」━━⭓ 
-┃╔═✪「 FUN 」	        
-┃╠ ${prefix}couple
-┃╠ ${prefix}mysoulmate
-┃╠ ${prefix}kind
-┃╠ ${prefix}idiot
-┃╠ ${prefix}handsome
-┃╠ ${prefix}beautiful
-┃╠ ${prefix}cute
-┃╠ ${prefix}pretty
-┃╠ ${prefix}lesbian
-┃╠ ${prefix}noob
-┃╠ ${prefix}bastard
-┃╠ ${prefix}foolish
-┃╠ ${prefix}nerd
-┃╠ ${prefix}asshole
-┃╠ ${prefix}gay
-┃╠ ${prefix}smart
-┃╠ ${prefix}stubble
-┃╠ ${prefix}dog
-┃╠ ${prefix}horny
-┃╠ ${prefix}cunt
-┃╠ ${prefix}wibu
+┓━「 البوت ${botname} 」━━⭓ 
+┃╗═✪「 اوامر الترفيه 」
+┃╣ التوأم الروحي
+┃╣ تشبيك
+┃╣ غبي
+┃╣ حمار
+┃╣ ذكي
+┃╣ منحرف
+┃╣ محبوب 
+┃╣ كلب
+┃╣ احمق
+┃╣ قرد
+┃╣ كريه
+┃╣ مكروه
+┃╣ هطف
+┃╣ خروف
+┃╣ ورع
+┃╣ مخادع
+┃╣ مظلوم
+┃╣ مسكين
+┃╣ جميل
+┃╣ طيب
+┃╣ محترم
+┃╣ زفت
+┃╣ وصخ
+┃╣ حزين
+┃╣ مجنون
+┃╣ بشع
+┃╣ صنم
+┃╣ شجاع
+┃╣ مضحك
+┃╣ مستفز
+┃╣ تسس
+┃╣ عاقل
+┃╣ محتال
+┃╣ مؤدب
+┃╣ غامض
+┃╣ ظالم
+┃╣ صادق
+┃╣ كذاب
+┃╣ بومة
+┃╣ حيوان
+┃╝═════≪كيو⚡≫═════✪
+┛━━「تعال كليوم يا ${pushname} 」━⭓
 ┃╚═════════════✪
-┗━━「 ${pushname} 」━⭓`,unicorn, [{"urlButton": {"displayText": "YouTube📍","url": `${myweb}`}},{"urlButton": {"displayText": "Script🔖","url": `${sc}`}},{"quickReplyButton": {"displayText": "🍜Donate🍜","id": 'donate'}},{"quickReplyButton": {"displayText": "👤Owner👤","id": 'owner'}}] )
-break
+┗━━「 هلا ${pushname} 」━⭓`,unicorn, [{"urlButton": {"displayText": "👤Owner👤","id": 'owner'}}] )break
 
 case 'ownermenu':
 var unicorn = await getBuffer(picak+'Owner Menu')
 await GojoMdNx.send5ButImg(from, `` + '' + ' ', `
-┏━「 ${botname} 」━━⭓ 
-┃╔═✪「 OWNER 」	        
-┃╠ ${prefix}chat [option]
-┃╠ ${prefix}join [link]
-┃╠ ${prefix}leave
-┃╠ ${prefix}block [user]
-┃╠ ${prefix}unblock [user]
-┃╠ ${prefix}bcgroup [text]
-┃╠ ${prefix}bcall [text]
-┃╠ ${prefix}setppbot [image]
-┃╠ ${prefix}setexif
+┓━「 البوت ${botname} 」━━⭓ 
+┃╗═✪「 اوامر المالك 」
+┃╣ محادثة
+┃╣ انضمام「رابط」
+┃╣ مغادرة「رابط」
+┃╣ حظر「مستخدم」
+┃╣ الغاءالحظر「مستخدم」
+┃╣ رسالة جماعية للقروبات「نص」
+┃╣ رسالة جماعية للكل「نص」
+┃╣ خلفية البوت「صورة」
+┃╣ رياكشن
+┃╣ حقوق الستيكر/حقوق
+┃╝═════≪كيو⚡≫═════✪
+┛━━「تعال كليوم يا ${pushname} 」━⭓
 ┃╚═════════════✪
-┗━━「 ${pushname} 」━⭓`,unicorn, [{"urlButton": {"displayText": "YouTube📍","url": `${myweb}`}},{"urlButton": {"displayText": "Script🔖","url": `${sc}`}},{"quickReplyButton": {"displayText": "🍜Donate🍜","id": 'donate'}},{"quickReplyButton": {"displayText": "👤Owner👤","id": 'owner'}}] )
+┗━━「 هلا ${pushname} 」━⭓`,unicorn, [{"urlButton": {"displayText": "👤Owner👤","id": 'owner'}}] )
 break
 case 'searchmenu':
 var unicorn = await getBuffer(picak+'Search Menu')
 await GojoMdNx.send5ButImg(from, `` + '' + ' ', `
 ┏━「 ${botname} 」━━⭓ 
-┃╔══✪「 SEARCHER 」	        
-┃╠${prefix}play [query]
-┃╠${prefix}song [query]
-┃╠${prefix}yts [query]
-┃╠${prefix}gimage [query]
-┃╠${prefix}pinterest [query]
-┃╠${prefix}wallpaper [query]
-┃╚═════════════✪
-┗━━「 ${pushname} 」━⭓`,unicorn, [{"urlButton": {"displayText": "YouTube📍","url": `${myweb}`}},{"urlButton": {"displayText": "Script🔖","url": `${sc}`}},{"quickReplyButton": {"displayText": "🍜Donate🍜","id": 'donate'}},{"quickReplyButton": {"displayText": "👤Owner👤","id": 'owner'}}] )
-break
-case 'randommenu':
-var unicorn = await getBuffer(picak+'Random Menu')
-await GojoMdNx.send5ButImg(from, `` + '' + ' ', `
-┏━「 ${botname} 」━━⭓ 
-┃╔══✪「 RANDOM 」	        
-┃╠${prefix}coffee
-┃╠${prefix}animequote (indo)
-┃╠${prefix}couplepp
-┃╚═════════════✪
-┗━━「 ${pushname} 」━⭓`,unicorn, [{"urlButton": {"displayText": "YouTube📍","url": `${myweb}`}},{"urlButton": {"displayText": "Script🔖","url": `${sc}`}},{"quickReplyButton": {"displayText": "🍜Donate🍜","id": 'donate'}},{"quickReplyButton": {"displayText": "👤Owner👤","id": 'owner'}}] )
+┓━「 البوت ${botname} 」━━⭓ 
+┃╗═✪「 اوامر البحث والتنزيل 」
+┃╣ اغنية/فيديو
+┃╣ صورة
+┃╣ بينتيريست
+┃╣ خلفية
+┃╣ شاي/قهوة
+┃╣ حذف
+┃╣ اقتباس انمي
+┃╣ تطقيم
+┃╣ ساوند كلاود
+┃╝═════≪كيو⚡≫═════✪
+┛━━「تعال كليوم يا ${pushname} 」━⭓
+┗━━「 ${pushname} 」━⭓`,unicorn, [{"urlButton": {"displayText": "👤Owner👤","id": 'owner'}}] )
 break
 case 'randomanimemenu':
 var unicorn = await getBuffer(picak+'Random Anime Menu')
@@ -2187,20 +2209,19 @@ break
 case 'convertmenu':
 var unicorn = await getBuffer(picak+'Converter Menu')
 await GojoMdNx.send5ButImg(from, `` + '' + ' ', `
-┏━「 ${botname} 」━━⭓ 
-┃╔══✪「 CONVERTER 」	        
-┃╠ ${prefix}toimage [reply stick]
-┃╠ ${prefix}sticker [reply img|gif]
-┃╠ ${prefix}emojimix [moji+moji]
-┃╠ ${prefix}tovideo [reply img]
-┃╠ ${prefix}togif [reply stick]
-┃╠ ${prefix}tourl [reply img]
-┃╠ ${prefix}tovn [reply aud]
-┃╠ ${prefix}tomp3 [reply vn]
-┃╠ ${prefix}toaudio [reply vid]
-┃╠ ${prefix}styletext [text]
-┃╚═════════════✪
-┗━━「 ${pushname} 」━⭓`,unicorn, [{"urlButton": {"displayText": "YouTube📍","url": `${myweb}`}},{"urlButton": {"displayText": "Script🔖","url": `${sc}`}},{"quickReplyButton": {"displayText": "🍜Donate🍜","id": 'donate'}},{"quickReplyButton": {"displayText": "👤Owner👤","id": 'owner'}}] )
+┓━「 البوت ${botname} 」━━⭓ 
+┃╗═✪「 اوامر التحويل 」
+┃╣ لصورة「ستيكر」
+┃╣ ستيكر「صورة او جيف」
+┃╣ لفيديو「ستيكر」
+┃╣ لجيف「ستيكر」
+┃╣ لرابط「صورة」
+┃╣ لصوت「فيديو」
+┃╣ دمج ايموجي/دمج「ايموجي+ايموجي」
+┃╣ زخرفة「انجليزي فقط」
+┃╝═════≪كيو⚡≫═════✪
+┛━━「تعال كليوم يا ${pushname} 」━⭓
+┗━━「 ${pushname} 」━⭓`,unicorn, [{"urlButton": {"displayText": "👤Owner👤","id": 'owner'}}] )
 break
             default:
                 if (budy.startsWith('=>')) {
