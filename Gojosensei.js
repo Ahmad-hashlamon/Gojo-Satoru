@@ -1870,17 +1870,18 @@ let template = await generateWAMessageFromContent(m.chat, proto.Message.fromObje
 case 'allmenu': {
   	anu = `
 ┏━「 *${botname}* 」━━⭓ 
-┃╔══☯︎「 MAIN 」☯︎
-┃╠ ${prefix}alive
-┃╠ ${prefix}speedtest
-┃╠ ${prefix}ping
-┃╠ ${prefix}owner
-┃╠ ${prefix}menu
-┃╠ ${prefix}delete
-┃╠ ${prefix}chatinfo
-┃╠ ${prefix}quoted
-┃╠ ${prefix}listpc
-┃╠ ${prefix}listgc
+┃╔══☯︎「 الرئيسية 」☯︎
+┃╣ نشط
+┃╣ اختبار السرعة
+┃╣ بينق
+┃╣ المالك
+┃╣ القائمة
+┃╣ حد المستخدم
+┃╣ حذف
+┃╣ حالة الرسائل
+┃╣ اخر رد للبوت
+┃╣ مستخدمين البوت خاص
+┃╣ مستخدمين البوت بالقروب
 ┃╠══✪「 OWNER 」 ☯︎
 ┃╠ ${prefix}chat [option]
 ┃╠ ${prefix}join [link]
@@ -2031,6 +2032,7 @@ await GojoMdNx.send5ButImg(from, `` + '' + ' ', `
 ┃╣ بينق
 ┃╣ المالك
 ┃╣ القائمة
+┃╣ حد المستخدم
 ┃╣ حذف
 ┃╣ حالة الرسائل
 ┃╣ اخر رد للبوت
@@ -2147,6 +2149,8 @@ await GojoMdNx.send5ButImg(from, `` + '' + ' ', `
 ┃╣ الغاءالحظر「مستخدم」
 ┃╣ رسالة جماعية للقروبات「نص」
 ┃╣ رسالة جماعية للكل「نص」
+┃╣ استخدام عام
+┃╣ استخدام خاص
 ┃╣ خلفية البوت「صورة」
 ┃╣ رياكشن
 ┃╣ حقوق الستيكر/حقوق
@@ -2176,35 +2180,31 @@ await GojoMdNx.send5ButImg(from, `` + '' + ' ', `
 break
 case 'randomanimemenu':
 var unicorn = await getBuffer(picak+'Random Anime Menu')
-await GojoMdNx.send5ButImg(from, `` + '' + ' ', `
-┏━「 ${botname} 」━━⭓ 
-┃╔✪「 RANDOM ANIME 」	        
-┃╠═✪「 RANDOM ANIME 」☯︎
-┃╠${prefix}bully
-┃╠${prefix}cuddle
-┃╠${prefix}cry
-┃╠${prefix}hug
-┃╠${prefix}pat
-┃╠${prefix}smug
-┃╠${prefix}bonk
-┃╠${prefix}yeet
-┃╠${prefix}blush
-┃╠${prefix}smile
-┃╠${prefix}wave
-┃╠${prefix}highfive
-┃╠${prefix}handhold
-┃╠${prefix}nom
-┃╠${prefix}glomp
-┃╠${prefix}bite
-┃╠${prefix}slap
-┃╠${prefix}kill
-┃╠${prefix}happy
-┃╠${prefix}wink
-┃╠${prefix}poke
-┃╠${prefix}dance
-┃╠${prefix}cringe
-┃╚═════════════✪
-┗━━「 ${pushname} 」━⭓`,unicorn, [{"urlButton": {"displayText": "YouTube📍","url": `${myweb}`}},{"urlButton": {"displayText": "Script🔖","url": `${sc}`}},{"quickReplyButton": {"displayText": "🍜Donate🍜","id": 'donate'}},{"quickReplyButton": {"displayText": "👤Owner👤","id": 'owner'}}] )
+await GojoMdNx.send5ButImg(from, `` + '' + ' ', ` 
+┓━「 البوت ${botname} 」━━⭓ 
+┃╗═✪「 ملصقات الانمي 」	        
+┃╣ سعيد | happy
+┃╣ حزين| cry
+┃╣ تربيت | pat
+┃╣ حضن | hug
+┃╣ كرنج | cringe
+┃╣ اليد | handhold
+┃╣ عناق | cuddle
+┃╣ كئيب | glomp
+┃╣ متعجرف | smug
+┃╣ صفع | slap
+┃╣ قتل | kill
+┃╣ خجل | blush
+┃╣ ابتسامة | smile
+┃╣ يأكل | nom
+┃╣ عض | bite
+┃╣ يلوح بيده | wave
+┃╣ غمزة | wink
+┃╣ ضرب | bonk
+┃╣ تنمر | bully
+┃╝═════≪كيو⚡≫═════✪
+┛━━「تعال كليوم يا ${pushname} 」━⭓
+┗━━「 ${pushname} 」━⭓`,unicorn, [{"urlButton": {"displayText": "👤Owner👤","id": 'owner'}}] )
 break
 case 'convertmenu':
 var unicorn = await getBuffer(picak+'Converter Menu')
@@ -2218,6 +2218,7 @@ await GojoMdNx.send5ButImg(from, `` + '' + ' ', `
 ┃╣ لرابط「صورة」
 ┃╣ لصوت「فيديو」
 ┃╣ دمج ايموجي/دمج「ايموجي+ايموجي」
+┃╣ ازالة الخلفية「صورة」
 ┃╣ زخرفة「انجليزي فقط」
 ┃╝═════≪كيو⚡≫═════✪
 ┛━━「تعال كليوم يا ${pushname} 」━⭓
