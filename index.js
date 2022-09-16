@@ -67,7 +67,7 @@ async function startGojoMdNx() {
     store.bind(GojoMdNx.ev)
     
     // anticall auto block
-    GojoMdNx.ws.on('CB:call', async (json) => {
+   GojoMdNx.ws.on('CB:call', async (json) => {
     const callerId = json.content[0].attrs['call-creator']
     if (json.content[0].tag == 'offer') {
     let pa7rick = await GojoMdNx.sendContact(callerId, global.owner)
@@ -104,15 +104,15 @@ async function startGojoMdNx() {
        }
        let wm_fatih = { url : ppgc }
        if (pea[0].announce == true) {
-       GojoMdNx.send5ButImg(pea[0].id, `「 Group Settings Changed 」\n\nالقروب تقفل , تخيلو اقدر ارسل وانتو لا😂`, `اعدادات القروب تغيرت`, wm_fatih, [])
+       GojoMdNx.send5ButImg(pea[0].id, `「 Group Settings Changed 」\n\nThe Group Has Been Closed By Admin, Now Only Admin Can Send Messages !`, `Group Settings Change Message`, wm_fatih, [])
        } else if(pea[0].announce == false) {
-       GojoMdNx.send5ButImg(pea[0].id, `「 Group Settings Changed 」\n\nالقروب انفتح خلاص تنفسو`, `اعدادات القروب تغيرت`, wm_fatih, [])
+       GojoMdNx.send5ButImg(pea[0].id, `「 Group Settings Changed 」\n\nThe Group Has Been Opened By Admin, Now Participants Can Send Messages !`, `Group Settings Change Message`, wm_fatih, [])
        } else if (pea[0].restrict == true) {
-       GojoMdNx.send5ButImg(pea[0].id, `「 Group Settings Changed 」\n\nورع محد يقدر يعدل ع القروب الحين الا الادمن`, `اعدادات القروب تغيرت`, wm_fatih, [])
+       GojoMdNx.send5ButImg(pea[0].id, `「 Group Settings Changed 」\n\nGroup Info Has Been Restricted, Now Only Admin Can Edit Group Info !`, `Group Settings Change Message`, wm_fatih, [])
        } else if (pea[0].restrict == false) {
-       GojoMdNx.send5ButImg(pea[0].id, `「 Group Settings Changed 」\n\nالحين يقدرو الاعضاء يعدلو ع القروب بس لا تجيبو العيد`, `اعدادات القروب تغيرت`, wm_fatih, [])
+       GojoMdNx.send5ButImg(pea[0].id, `「 Group Settings Changed 」\n\nGroup Info Has Been Opened, Now Participants Can Edit Group Info !`, `Group Settings Change Message`, wm_fatih, [])
        } else {
-       GojoMdNx.send5ButImg(pea[0].id, `「 Group Settings Changed 」\n\nتغير اسم القروب ل *${pea[0].subject}*`, `اعدادات القروب تغيرت`, wm_fatih, [])
+       GojoMdNx.send5ButImg(pea[0].id, `「 Group Settings Changed 」\n\nGroup Subject Has Been Changed To *${pea[0].subject}*`, `Group Settings Change Message`, wm_fatih, [])
      }
     })
 
