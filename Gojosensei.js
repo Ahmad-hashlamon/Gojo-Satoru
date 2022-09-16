@@ -1843,6 +1843,16 @@ let template = await generateWAMessageFromContent(m.chat, proto.Message.fromObje
             GojoMdNx.relayMessage(m.chat, template.message, { messageId: template.key.id })
             }
             break
+	                            case 'sc': case 'script': { 
+
+                 reply( `روح دز نام ما راح تاخده لو تموت`) 
+             } 
+
+             break
+
+             } 
+
+             break
 case 'allmenu': {
   	anu = `
 ┓━「 البوت ${botname} 」━━⭓ 
