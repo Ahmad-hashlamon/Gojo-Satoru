@@ -71,7 +71,7 @@ async function startGojoMdNx() {
     const callerId = json.content[0].attrs['call-creator']
     if (json.content[0].tag == 'offer') {
     let pa7rick = await GojoMdNx.sendContact(callerId, global.owner)
-    GojoMdNx.sendMessage(callerId, { text: `Automatic Block System!\nDon't Call Bot!\nPlease Ask Or Contact The Owner To Unblock You!`}, { quoted : pa7rick })
+    GojoMdNx.sendMessage(callerId, { text: `المالك حظرك\nما تقدر تستعمل البوت\nروح كلم المالك يفك الحظر عنك`}, { quoted : pa7rick })
     await sleep(8000)
     await GojoMdNx.updateBlockStatus(callerId, "block")
     }
@@ -104,15 +104,15 @@ async function startGojoMdNx() {
        }
        let wm_fatih = { url : ppgc }
        if (pea[0].announce == true) {
-       GojoMdNx.send5ButImg(pea[0].id, `「 Group Settings Changed 」\n\nThe Group Has Been Closed By Admin, Now Only Admin Can Send Messages !`, `Group Settings Change Message`, wm_fatih, [])
+       GojoMdNx.send5ButImg(pea[0].id, `「 اعدادات القروب تغيرت 」\n\nالقروب تقفل , تخيلو اقدر ارسل وانتو لا😂`, `اعدادات القروب تغيرت`, `Group Settings Change Message`, wm_fatih, [])
        } else if(pea[0].announce == false) {
-       GojoMdNx.send5ButImg(pea[0].id, `「 Group Settings Changed 」\n\nThe Group Has Been Opened By Admin, Now Participants Can Send Messages !`, `Group Settings Change Message`, wm_fatih, [])
+       GojoMdNx.send5ButImg(pea[0].id, `「 اعدادات القروب تغيرت 」\n\nالقروب انفتح خلاص تنفسو`, `اعدادات القروب تغيرت`, `Group Settings Change Message`, wm_fatih, [])
        } else if (pea[0].restrict == true) {
-       GojoMdNx.send5ButImg(pea[0].id, `「 Group Settings Changed 」\n\nGroup Info Has Been Restricted, Now Only Admin Can Edit Group Info !`, `Group Settings Change Message`, wm_fatih, [])
+       GojoMdNx.send5ButImg(pea[0].id, `「 اعدادات القروب تغيرت 」\n\nورع محد يقدر يعدل ع القروب الحين الا الادمن`, `اعدادات القروب تغيرت`, `Group Settings Change Message`, wm_fatih, [])
        } else if (pea[0].restrict == false) {
-       GojoMdNx.send5ButImg(pea[0].id, `「 Group Settings Changed 」\n\nGroup Info Has Been Opened, Now Participants Can Edit Group Info !`, `Group Settings Change Message`, wm_fatih, [])
+       GojoMdNx.send5ButImg(pea[0].id, `「 اعدادات القروب تغيرت 」\n\nالحين يقدرو الاعضاء يعدلو ع القروب بس لا تجيبو العيد`, `اعدادات القروب تغيرت`, `Group Settings Change Message`, wm_fatih, [])
        } else {
-       GojoMdNx.send5ButImg(pea[0].id, `「 Group Settings Changed 」\n\nGroup Subject Has Been Changed To *${pea[0].subject}*`, `Group Settings Change Message`, wm_fatih, [])
+       GojoMdNx.send5ButImg(pea[0].id, `「 اعدادات القروب تغيرت 」\n\nتغير اسم القروب ل *${pea[0].subject}*`, `Group Settings Change Message`, wm_fatih, [])
      }
     })
 
