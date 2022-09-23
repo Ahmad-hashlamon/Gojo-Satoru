@@ -3391,7 +3391,7 @@ const template = generateWAMessageFromContent(m.chat, proto.Message.fromObject({
                 GojoMdNx.relayMessage(m.chat, template.message, { messageId: template.key.id })
                 }
                 break
- case 'command': {
+ case 'command': case 'القائمة': {
 let template = await generateWAMessageFromContent(m.chat, proto.Message.fromObject({
                 listMessage :{
                     title: `Hi ${pushname}`,
@@ -3404,7 +3404,7 @@ let template = await generateWAMessageFromContent(m.chat, proto.Message.fromObje
 								"rows": [
 									{
 										"title": "الاوامر الرئيسية",
-										"description": "اوامر البوت الرئيسية",
+										"description": ".0.",
 										"rowId": `${prefix}mainmenu`
 									}
 								]
@@ -3414,42 +3414,42 @@ let template = await generateWAMessageFromContent(m.chat, proto.Message.fromObje
 								"rows": [
 									{
 										"title": "كل الاوامر",
-										"description": "فيها كل اوامر البوت",
+										"description": ".1.",
 										"rowId": `${prefix}allmenu`
 									},
 									{
 										"title": "اوامر المالك",
-										"description": "اوامر بس المالك يقدر يستعملها",
+										"description": ".2.",
 										"rowId": `${prefix}ownermenu`
 										},
 									{
 										"title": "اوامر القروب",
-										"description": "الاوامر الخاصة بالقروب",
+										"description": ".3.",
 										"rowId": `${prefix}groupmenu`
 										},
 									    {
 										"title": "اوامر الالعاب",
-										"description": "فيها اوامر العاب البوت",
+										"description": ".4.",
 										"rowId": `${prefix}rpgmenu`
 									        },
 								        	{
 										"title": "اوامر البحث والتنزيل",
-										"description": " اوامر تختص بالبحث والتنزيل",
+										"description": ".5.",
 										"rowId": `${prefix}searchmenu`
 									        },
 									        {
 											"title": "ستيكرات انمي",
-										"description": "ردود فعل بملصقات انمي",
+										"description": ".6.",
 										"rowId": `${prefix}randomanimemenu`
 										},
 										{
 											"title": "اوامر ترفيه",
-										"description": "Displays The List Of Fun Features",
+										"description": ".7.",
 										"rowId": `${prefix}funmenu`
 										},
 										{
 											"title": "اوامر تحويل",
-										"description": "Displays The List Of Convert Features",
+										"description": ".8.",
 										"rowId": `${prefix}convertmenu`
 										},
 										
@@ -3635,7 +3635,7 @@ case 'allmenu': {
             }
 break
 case 'mainmenu':
-var unicorn = await getBuffer(picak+'Main Menu')
+var unicorn = await getBuffer(picak+'.0.')
 await GojoMdNx.send5ButImg(from, `` + '' + ' ', `
 ┓━「 البوت ${botname} 」━━⭓ 
 ┃╗═✪「 القائمة الرئيسية 」
@@ -3656,7 +3656,7 @@ await GojoMdNx.send5ButImg(from, `` + '' + ' ', `
 break
 
 case 'grupmenu': case 'groupmenu':
-var unicorn = await getBuffer(picak+'Group Menu')
+var unicorn = await getBuffer(picak+'.3.')
 await GojoMdNx.send5ButImg(from, `` + '' + ' ', `
 ┓━「 البوت ${botname} 」━━⭓ 
 ┃╗═✪「 اوامر القروب 」
@@ -3686,7 +3686,7 @@ await GojoMdNx.send5ButImg(from, `` + '' + ' ', `
 ┗━━「 هلا ${pushname} 」━⭓`,unicorn, [{"urlButton": {"displayText": "👤Owner👤","id": 'owner'}}] )
 break
 case 'rpgmenu':
-var unicorn = await getBuffer(picak+'Rpg Menu')
+var unicorn = await getBuffer(picak+'.4.')
 await GojoMdNx.send5ButImg(from, `` + '' + ' ', `
 ┓━「 البوت ${botname} 」━━⭓ 
 ┃╗═✪「 اوامر الالعاب 」
@@ -3699,7 +3699,7 @@ await GojoMdNx.send5ButImg(from, `` + '' + ' ', `
 ┗━━「 ${pushname} 」━⭓`,unicorn, [{"urlButton": {"displayText": "👤Owner👤","id": 'owner'}}] )
 break
 case 'funmenu':
-var unicorn = await getBuffer(picak+'Fun Menu')
+var unicorn = await getBuffer(picak+'.7.')
 await GojoMdNx.send5ButImg(from, `` + '' + ' ', `
 ┓━「 البوت ${botname} 」━━⭓ 
 ┃╗═✪「 اوامر الترفيه 」
@@ -3750,7 +3750,7 @@ await GojoMdNx.send5ButImg(from, `` + '' + ' ', `
 break
 
 case 'ownermenu':
-var unicorn = await getBuffer(picak+'Owner Menu')
+var unicorn = await getBuffer(picak+'.2.')
 await GojoMdNx.send5ButImg(from, `` + '' + ' ', `
 ┓━「 البوت ${botname} 」━━⭓ 
 ┃╗═✪「 اوامر المالك 」
@@ -3773,7 +3773,7 @@ await GojoMdNx.send5ButImg(from, `` + '' + ' ', `
 ┗━━「 هلا ${pushname} 」━⭓`,unicorn, [{"urlButton": {"displayText": "👤Owner👤","id": 'owner'}}] )
 break
 case 'searchmenu':
-var unicorn = await getBuffer(picak+'Search Menu')
+var unicorn = await getBuffer(picak+'.5.')
 await GojoMdNx.send5ButImg(from, `` + '' + ' ', `
 ┏━「 ${botname} 」━━⭓ 
 ┓━「 البوت ${botname} 」━━⭓ 
@@ -3792,7 +3792,7 @@ await GojoMdNx.send5ButImg(from, `` + '' + ' ', `
 ┗━━「 ${pushname} 」━⭓`,unicorn, [{"urlButton": {"displayText": "👤Owner👤","id": 'owner'}}] )
 break
 case 'randomanimemenu':
-var unicorn = await getBuffer(picak+'Random Anime Menu')
+var unicorn = await getBuffer(picak+'.6.')
 await GojoMdNx.send5ButImg(from, `` + '' + ' ', ` 
 ┓━「 البوت ${botname} 」━━⭓ 
 ┃╗═✪「 ملصقات الانمي 」	        
@@ -3820,7 +3820,7 @@ await GojoMdNx.send5ButImg(from, `` + '' + ' ', `
 ┗━━「 ${pushname} 」━⭓`,unicorn, [{"urlButton": {"displayText": "👤Owner👤","id": 'owner'}}] )
 break
 case 'convertmenu':
-var unicorn = await getBuffer(picak+'Converter Menu')
+var unicorn = await getBuffer(picak+'.8.')
 await GojoMdNx.send5ButImg(from, `` + '' + ' ', `
 ┓━「 البوت ${botname} 」━━⭓ 
 ┃╗═✪「 اوامر التحويل 」
