@@ -15,10 +15,10 @@
 
 </br>
 
-<a href="https://github.com/Ahmad-hashlamon"><img title="Author" src="https://img.shields.io/badge/Author-kyo⚡-blue.svg?color=54aeff&style=for-the-badge&logo=github" /></a>  
-<a href="https://github.com/Ahmad-hashlamon/Gojo-Satoru"><img title="Stars" src="https://img.shields.io/github/stars/Ahmad-hashlamon/Gojo-Satoru?color=54aeff&style=flat-square" /></a>
-<a href="https://github.com/Ahmad-hashlamon/Gojo-Satoru/network/members"><img title="Forks" src="https://img.shields.io/github/forks/Ahmad-hashlamon/Gojo-Satoru?color=54aeff&style=flat-square" /></a>
-<a href="https://github.com/Ahmad-hashlamon/Gojo-Satoru/watchers"><img title="Watching" src="https://img.shields.io/github/watchers/Ahmad-hashlamon/Gojo-Satoru?label=watchers&color=54aeff&style=flat-square" /></a> <br>
+<a href="https://github.com/nexusNw"><img title="Author" src="https://img.shields.io/badge/Author-nexusNw-blue.svg?color=54aeff&style=for-the-badge&logo=github" /></a>  
+<a href="https://github.com/nexusNw/Gojo-Satoru"><img title="Stars" src="https://img.shields.io/github/stars/nexusNw/Gojo-Satoru?color=54aeff&style=flat-square" /></a>
+<a href="https://github.com/nexusNw/Gojo-Satoru/network/members"><img title="Forks" src="https://img.shields.io/github/forks/nexusNw/Gojo-Satoru?color=54aeff&style=flat-square" /></a>
+<a href="https://github.com/nexusNw/Gojo-Satoru/watchers"><img title="Watching" src="https://img.shields.io/github/watchers/nexusNw/Gojo-Satoru?label=watchers&color=54aeff&style=flat-square" /></a> <br>
 
 ---
 
@@ -43,7 +43,7 @@ Add FFmpeg to PATH environment variable
 * then Deploy The Bot From [Here](https://heroku.com/deploy)
 * Wait 5-10 Min To Deploy 
 * After Deploying On The Worker And Check The Logs
-	
+
 </details>
 
 
